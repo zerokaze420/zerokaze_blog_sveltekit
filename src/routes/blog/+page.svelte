@@ -1,4 +1,7 @@
 <script lang="ts">
+    import type { PageData } from './$types';
+
+    export let data: PageData;
     let  articles = [
         {
             title: "Article 1",
@@ -32,11 +35,12 @@
 
 
 <div class="min-h-screen columns-1  gap-4 md:columns-2 lg:columns-3 bg-gray-100 text-gray-800">
-{#each articles as article}
+{#each data.posts as post}
     <div class="w-90/100 break-inside-avoid mb-4  bg-slate-200 rounded-lg p-4">
-        <p>title:{article.title}</p>
-        <p>description:{article.description}</p>
-        <a href="{article.link}">Read more</a>
+        <a href={`/blog/${post.slug}`} class="block break-inside-avoid mb-4 bg-slate-200 rounded-lg p-4 hover:bg-slate-300 transition-colors">
+    <p class="text-xl font-semibold ">{post.metadata.title}</p>
+    <p class="mt-2 text-gray-700">{post.metadata.description}</p>
+</a>
     </div>
 {/each}
 </div>
