@@ -24,13 +24,16 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: null
+			fallback: undefined,
+			precompress: false,
+			strict: true
 		}),
 		paths: {
 			// highlight-start
 			// 已根据你的仓库名配置好
 			// base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : '',
 			// highlight-end
+			base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : ''
 		}
 	}
 };
