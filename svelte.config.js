@@ -8,12 +8,12 @@ const config = {
 	// for more information about preprocessors
 	extensions: ['.svelte', '.md'],
 	preprocess: [
-		 mdsvex({
-      // ✅ 将 mdsvex 应用于 .md 档案
-      extensions: ['.md'],
-      // 你可以在这里添加其他 mdsvex 设定，例如版面配置
-    }), //必须要先通过
-	 vitePreprocess(),
+		mdsvex({
+			// ✅ 将 mdsvex 应用于 .md 档案
+			extensions: ['.md'],
+			// 你可以在这里添加其他 mdsvex 设定，例如版面配置
+		}), //必须要先通过
+		vitePreprocess(),
 
 	],
 
@@ -21,13 +21,17 @@ const config = {
 		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
 		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter(),
+		adapter: adapter({
+			pages: 'build',
+			assets: 'build',
+			fallback: null
+		}),
 		paths: {
-      // highlight-start
-      // 已根据你的仓库名配置好
-      base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : '',
-      // highlight-end
-    }
+			// highlight-start
+			// 已根据你的仓库名配置好
+			base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : '',
+			// highlight-end
+		}
 	}
 };
 
