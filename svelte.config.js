@@ -30,9 +30,7 @@ const config = {
             base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : ''
         }
     },
-    compilerOptions: {
-		runes: true
-	}
+
 };
 
 export default config;

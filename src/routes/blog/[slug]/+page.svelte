@@ -1,11 +1,12 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  export let data: PageData;
-
+  const { data } = $props<{ data: PageData }>();
   // 使用 Svelte 的响应式语法 `$: `
   // 这行代码会在 `data` 属性发生变化时自动重新运行
-  $: postContentPromise = import(`../../../lib/posts/${data.metadata.slug}.md`);
-</script>
+const postContentPromise = $derived(
+    import(`../../../lib/posts/${data.metadata.slug}.md`)
+  );
+  </script>
 
 
 

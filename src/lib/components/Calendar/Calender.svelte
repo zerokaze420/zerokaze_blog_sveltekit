@@ -1,8 +1,6 @@
 <script lang="ts">
-	// 导入 Svelte 5 的响应式 API，增加了 $derived
-	import { $state, $effect, $derived } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 
-	// --- 类型定义 (无变化) ---
 	interface CalendarEvent {
 		date: string;
 		image: string;
@@ -13,65 +11,58 @@
 		event?: CalendarEvent;
 	}
 
-	// --- 1. 模拟事件数据 (无变化) ---
 	const events: CalendarEvent[] = [
 		{ date: '2025-07-04', image: 'https://images.unsplash.com/photo-1599580506457-96ae52a5de6a?w=800', title: '美国独立日' },
 		{ date: '2025-07-15', image: 'https://images.unsplash.com/photo-1594132322491-64531846c4f9?w=800', title: '夏日祭典' },
-		{ date: '2025-07-22', image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800', title: '音乐节' },
+		{ date: '2025-07-22', image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800', title: '音乐节' }
 	];
 
-	// --- 2. 日历状态 (无变化) ---
-	let year = $state(2025);
-	let month = $state(6); // 0-indexed, 6 代表 7 月
-	let calendarGrid = $state<CalendarCell[]>([]);
+	let year = 2025;
+	let month = 6; // 0-indexed
+	let calendarGrid: CalendarCell[] = [];
 
-	// --- ✨ 新增: 使用 $derived 创建衍生状态 ---
-	// title 会在 year 或 month 变化时自动重新计算，非常优雅！
-	const title = $derived(
-		new Date(year, month).toLocaleString('zh-CN', { // 使用 zh-CN 本地化
+	let activeImage: string | null = null;
+	let mouseX = 0;
+	let mouseY = 0;
+
+	let title = '';
+
+	// 更新日历和标题
+	function updateCalendar() {
+		title = new Date(year, month).toLocaleString('zh-CN', {
 			year: 'numeric',
 			month: 'long'
-		})
-	);
-
-	// --- 3. 悬浮图片状态 (无变化) ---
-	let activeImage = $state<string | null>(null);
-	let mouseX = $state(0);
-	let mouseY = $state(0);
-
-	// --- 4. 生成日历的函数 (无变化) ---
-	function generateCalendar(y: number, m: number) {
+		});
 		const grid: CalendarCell[] = [];
-		const date = new Date(y, m, 1);
-		const firstDayOfWeek = date.getDay(); // 0=周日, 1=周一, ...
-		const daysInMonth = new Date(y, m + 1, 0).getDate();
+		const date = new Date(year, month, 1);
+		const firstDayOfWeek = date.getDay();
+		const daysInMonth = new Date(year, month + 1, 0).getDate();
 
 		for (let i = 0; i < firstDayOfWeek; i++) {
 			grid.push({ day: null });
 		}
 		for (let i = 1; i <= daysInMonth; i++) {
-			const currentDateStr = `${y}-${String(m + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+			const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
 			const event = events.find((e) => e.date === currentDateStr);
-			grid.push({ day: i, event: event });
+			grid.push({ day: i, event });
 		}
 		calendarGrid = grid;
 	}
 
-	// --- 5. 使用 $effect 来响应状态变化 (无变化) ---
-	$effect(() => {
-		generateCalendar(year, month);
-	});
+	// 响应式处理
+	$: updateCalendar();
 
-	// --- 6. 事件处理器 (无变化) ---
 	function handleMouseMove(event: MouseEvent) {
 		mouseX = event.clientX;
 		mouseY = event.clientY;
 	}
+
 	function showImage(event: CalendarEvent | undefined) {
 		if (event) {
 			activeImage = event.image;
 		}
 	}
+
 	function hideImage() {
 		activeImage = null;
 	}
@@ -171,7 +162,6 @@
 		border-radius: 10px;
 		overflow: hidden;
 		pointer-events: none;
-		/* 初始状态为透明 */
 		opacity: 0;
 		transition:
 			transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -185,10 +175,8 @@
 		object-fit: cover;
 	}
 
-	/* ✨ 修改点 2 的 CSS 部分: 当 .visible 类存在时，应用这些样式来触发动画 */
 	.floating-image.visible {
 		transform: translate(-50%, -50%) scale(1);
 		opacity: 1;
 	}
-	/* 移除了有问题的 :global(.floating-image) 规则 */
 </style>
