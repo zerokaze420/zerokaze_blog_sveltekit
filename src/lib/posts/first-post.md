@@ -20,9 +20,6 @@ signed main() {
 }
 ```
 
-$$
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
-$$
 
 
 <script lang="ts">
@@ -32,10 +29,3 @@ $$
 这是一个互动式元件：
 <Counter /> 
 
-<!-- 
-<script lang="ts">
-  // import Counter from '$lib/components/Counter.svelte'; // 假设你有一个计数器元件
-</script>
-
-这是一个互动式元件：
-<Counter /> -->
