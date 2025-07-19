@@ -1,90 +1,87 @@
 <script lang="ts">
-	// 导入 Svelte 5 的响应式 API
-	import { $state, $effect } from 'svelte';
+	// 导入 Svelte 5 的响应式 API，增加了 $derived
+	import { $state, $effect, $derived } from 'svelte';
 
-	// --- 类型定义 ---
-	// 定义日历事件的数据结构
+	// --- 类型定义 (无变化) ---
 	interface CalendarEvent {
-		date: string; // 格式: YYYY-MM-DD
+		date: string;
 		image: string;
 		title: string;
 	}
-
-	// 定义日历网格中每个单元格的数据结构
 	interface CalendarCell {
 		day: number | null;
 		event?: CalendarEvent;
 	}
 
-	// --- 1. 模拟事件数据 (保持不变) ---
+	// --- 1. 模拟事件数据 (无变化) ---
 	const events: CalendarEvent[] = [
 		{ date: '2025-07-04', image: 'https://images.unsplash.com/photo-1599580506457-96ae52a5de6a?w=800', title: '美国独立日' },
 		{ date: '2025-07-15', image: 'https://images.unsplash.com/photo-1594132322491-64531846c4f9?w=800', title: '夏日祭典' },
 		{ date: '2025-07-22', image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800', title: '音乐节' },
 	];
 
-	// --- 2. 日历状态 (使用 $state) ---
-	// 使用 $state() 创建响应式变量。当它们的值改变时，UI 会自动更新。
+	// --- 2. 日历状态 (无变化) ---
 	let year = $state(2025);
 	let month = $state(6); // 0-indexed, 6 代表 7 月
 	let calendarGrid = $state<CalendarCell[]>([]);
 
-	// --- 3. 悬浮图片状态 (使用 $state) ---
+	// --- ✨ 新增: 使用 $derived 创建衍生状态 ---
+	// title 会在 year 或 month 变化时自动重新计算，非常优雅！
+	const title = $derived(
+		new Date(year, month).toLocaleString('zh-CN', { // 使用 zh-CN 本地化
+			year: 'numeric',
+			month: 'long'
+		})
+	);
+
+	// --- 3. 悬浮图片状态 (无变化) ---
 	let activeImage = $state<string | null>(null);
 	let mouseX = $state(0);
 	let mouseY = $state(0);
 
-	// --- 4. 生成日历的函数 (保持不变) ---
+	// --- 4. 生成日历的函数 (无变化) ---
 	function generateCalendar(y: number, m: number) {
 		const grid: CalendarCell[] = [];
 		const date = new Date(y, m, 1);
 		const firstDayOfWeek = date.getDay(); // 0=周日, 1=周一, ...
 		const daysInMonth = new Date(y, m + 1, 0).getDate();
 
-		// 添加前面的空白格子
 		for (let i = 0; i < firstDayOfWeek; i++) {
 			grid.push({ day: null });
 		}
-
-		// 添加当月的日期
 		for (let i = 1; i <= daysInMonth; i++) {
 			const currentDateStr = `${y}-${String(m + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-			const event = events.find(e => e.date === currentDateStr);
+			const event = events.find((e) => e.date === currentDateStr);
 			grid.push({ day: i, event: event });
 		}
 		calendarGrid = grid;
 	}
 
-	// --- 5. 使用 $effect 来响应状态变化 ---
-	// $effect 会在它依赖的任何 $state 变量 (这里是 year 和 month) 改变时自动重新运行。
-	// 这完美地替代了 onMount 和手动的更新调用。
+	// --- 5. 使用 $effect 来响应状态变化 (无变化) ---
 	$effect(() => {
 		generateCalendar(year, month);
 	});
 
-	// --- 6. 事件处理器 (保持不变) ---
+	// --- 6. 事件处理器 (无变化) ---
 	function handleMouseMove(event: MouseEvent) {
 		mouseX = event.clientX;
 		mouseY = event.clientY;
 	}
-
 	function showImage(event: CalendarEvent | undefined) {
 		if (event) {
 			activeImage = event.image;
 		}
 	}
-
 	function hideImage() {
 		activeImage = null;
 	}
 </script>
 
-<!-- HTML 模板部分完全不需要改变 -->
 <div class="calendar-container" on:mousemove={handleMouseMove}>
-	<h1>July 2025</h1>
+	<h1>{title}</h1>
 
 	<div class="calendar-grid">
-		{#each ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as dayName}
+		{#each ['日', '一', '二', '三', '四', '五', '六'] as dayName}
 			<div class="day-name">{dayName}</div>
 		{/each}
 
@@ -101,21 +98,24 @@
 		{/each}
 	</div>
 
-	{#if activeImage}
-		<div class="floating-image" style="--x: {mouseX}px; --y: {mouseY}px;">
+	<div
+		class="floating-image"
+		class:visible={activeImage}
+		style="--x: {mouseX}px; --y: {mouseY}px;"
+	>
+		{#if activeImage}
 			<img src={activeImage} alt="Event" />
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>
 
-<!-- 样式部分也完全不需要改变 -->
 <style>
 	.calendar-container {
 		width: 100%;
 		max-width: 1200px;
 		margin: 2rem auto;
 		font-family: sans-serif;
-		position: relative; /* 为悬浮图片定位 */
+		position: relative;
 	}
 
 	h1 {
@@ -136,7 +136,7 @@
 	}
 
 	.calendar-day {
-		aspect-ratio: 1 / 1; /* 保持正方形 */
+		aspect-ratio: 1 / 1;
 		border: 1px solid #eee;
 		display: flex;
 		justify-content: center;
@@ -162,29 +162,33 @@
 	}
 
 	.floating-image {
-		position: fixed; /* 使用 fixed 定位，跟随视口 */
+		position: fixed;
 		left: var(--x);
 		top: var(--y);
-		transform: translate(-50%, -50%) scale(0.8); /* 从中心点定位并缩小 */
+		transform: translate(-50%, -50%) scale(0.8);
 		width: 300px;
 		height: 300px;
 		border-radius: 10px;
 		overflow: hidden;
-		pointer-events: none; /* 让鼠标事件穿透图片 */
+		pointer-events: none;
+		/* 初始状态为透明 */
 		opacity: 0;
-		transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+		transition:
+			transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+			opacity 0.3s ease;
 		z-index: 99;
 	}
 
 	.floating-image img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover; /* 保证图片不变形 */
+		object-fit: cover;
 	}
 
-	/* 当 activeImage 有值时，Svelte 会自动处理这里的逻辑 */
-	:global(.floating-image) {
+	/* ✨ 修改点 2 的 CSS 部分: 当 .visible 类存在时，应用这些样式来触发动画 */
+	.floating-image.visible {
 		transform: translate(-50%, -50%) scale(1);
 		opacity: 1;
 	}
+	/* 移除了有问题的 :global(.floating-image) 规则 */
 </style>
