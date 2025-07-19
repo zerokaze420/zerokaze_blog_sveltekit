@@ -1,41 +1,35 @@
-import adapter from '@sveltejs/adapter-auto';
+// 导入正确的静态适配器
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://svelte.dev/docs/kit/integrations
-	// for more information about preprocessors
-	extensions: ['.svelte', '.md'],
-	preprocess: [
-		mdsvex({
-			// ✅ 将 mdsvex 应用于 .md 档案
-			extensions: ['.md'],
-			// 你可以在这里添加其他 mdsvex 设定，例如版面配置
-		}), //必须要先通过
-		vitePreprocess(),
+    // 保留你为 Markdown 文件设置的预处理器
+    extensions: ['.svelte', '.md'],
+    preprocess: [
+        mdsvex({
+            extensions: ['.md'],
+        }),
+        vitePreprocess(),
+    ],
 
-	],
+    kit: {
+        // 使用我们导入的 adapter-static
+        adapter: adapter({
+            // 这里是 adapter-static 的配置，保持不变
+            pages: 'build',
+            assets: 'build',
+            fallback: undefined,
+            precompress: false,
+            strict: true
+        }),
 
-	kit: {
-		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter({
-			pages: 'build',
-			assets: 'build',
-			fallback: undefined,
-			precompress: false,
-			strict: true
-		}),
-		paths: {
-			// highlight-start
-			// 已根据你的仓库名配置好
-			// base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : '',
-			// highlight-end
-			base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : ''
-		}
-	}
+        // 保留你为 GitHub Pages 设置的路径
+        paths: {
+            base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : ''
+        }
+    }
 };
 
 export default config;
