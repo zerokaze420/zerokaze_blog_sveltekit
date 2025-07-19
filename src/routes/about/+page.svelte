@@ -1,3 +1,7 @@
+<script lang="ts">
+  import RandomImage from "$lib/components/RandomImage.svelte";
+</script>
+
 <svelte:head>
   <title>关于我</title>
 </svelte:head>

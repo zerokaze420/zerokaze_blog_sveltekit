@@ -1,29 +1,70 @@
-<script lang="ts">
-  let timestamp = Date.now();
+<script>
+  let imageUrl = '';
+  let loading = true; // 初始状态设为加载中
 
-  function refreshImage() {
-    timestamp = Date.now(); // 更新时间戳以刷新图片
+  async function loadImage() {
+    try {
+      const res = await fetch('https://img.paulzzh.com/touhou/random?type=json');
+      const data = await res.json();
+      
+      // 仅使用preview小图
+      imageUrl = data.preview;
+      
+      // 处理Konachan的特殊编码
+      if (imageUrl?.includes('konachan.net')) {
+        imageUrl = imageUrl
+          .replace(/Konachan\.com%20-%20\d+%20/, '')
+          .replace(/%20/g, ' ');
+      }
+    } catch (err) {
+      console.error("图片加载失败:", err);
+    } finally {
+      loading = false;
+    }
   }
+
+  // 组件加载时自动获取
+  loadImage();
 </script>
 
-<div class="flex flex-col items-center justify-center min-h-screen p-4">
-  <div class="w-full max-w-md">
-    <div class="relative rounded-lg overflow-hidden shadow-lg bg-gray-100 dark:bg-gray-800 transition-opacity duration-300">
-      <img
-        src={` https://app.zichen.zone/api/acg/api.php`}
-        alt="随机ACG图片"
-        class="w-full h-auto object-cover"
-        on:load={() => {
-          // 可选：加载完成后的动画
-        }}
-      />
-    </div>
-
-    <button
-      on:click={refreshImage}
-      class="mt-4 w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-300"
-    >
-      🔁 刷新图片
-    </button>
-  </div>
+<div class="image-container">
+  {#if loading}
+    <p class="loading-text">图片加载中...</p>
+  {:else if imageUrl}
+    <img 
+      src={imageUrl} 
+      alt="" 
+      class="preview-image"
+      on:error={() => console.error('图片加载失败')}
+    />
+  {:else}
+    <p class="error-text">未能加载图片</p>
+  {/if}
 </div>
+
+<style>
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .preview-image {
+    max-width: 300px;  /* 限制小图尺寸 */
+    max-height: 300px;
+    /* border-radius: 4px; */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .loading-text, .error-text {
+    color: #666;
+    font-size: 14px;
+    margin: 20px;
+  }
+  
+  .error-text {
+    color: #ff6b6b;
+  }
+</style>
