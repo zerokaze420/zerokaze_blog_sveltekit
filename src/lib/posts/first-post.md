@@ -24,8 +24,11 @@ signed main() {
 
 <script lang="ts">
   import Counter from '$lib/components/Counter.svelte'; // 假设你有一个计数器元件
+  import  RandomImage from '$lib/components/RandomImage.svelte';
 </script>
 
 这是一个互动式元件：
 <Counter /> 
+
+<RandomImage/>
 
