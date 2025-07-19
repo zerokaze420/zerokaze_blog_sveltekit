@@ -19,6 +19,9 @@
       <li>
         <a href="{base}/about" class="block py-2 px-3 rounded hover:bg-gray-700 transition duration-200">关于我</a>
       </li>
+      <li>
+        <a href="{base}/calendar" class="block py-2 px-3 rounded hover:bg-gray-700 transition duration-200">日历</a>
+      </li>
     </ul>
   </nav>
 </aside>

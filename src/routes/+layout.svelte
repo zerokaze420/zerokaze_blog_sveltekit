@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../app.css'; // 确保你的 Tailwind CSS 已经引入
-    import Sidebar from '$lib/components/Sidebar.svelte';
+    import Sidebar from '$lib/components/Sidebar/Sidebar.svelte';
     // import Footer from '$lib/components/Footer.svelte'; // 导入 Footer 组件
 
     let { children } = $props();
