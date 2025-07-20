@@ -22,3 +22,6 @@ import PseudoElementDemo from '$lib/components/PseudoElementDemo.svelte';
 </script>
 
 <PseudoElementDemo/>
+
+
+## 伪元素的经典应用
