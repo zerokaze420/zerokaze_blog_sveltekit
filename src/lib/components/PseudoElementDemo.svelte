@@ -1,5 +1,5 @@
 <script>
-  let inputValue = '';
+  let inputValue = $state('');
 </script>
 
 <div class="container">
