@@ -1,3 +1,16 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+
+ body {
+    background-image: url('/wallhaven-qr6z7d.jpg'); /* 替换为你的图片路径 */
+    background-size: cover; /* 让图片覆盖整个背景区域 */
+    background-position: center; /* 居中图片 */
+    background-repeat: no-repeat; /* 不重复图片 */
+    background-attachment: fixed; /* (可选) 让背景图片固定，不随滚动条滚动 */
+    min-height: 100vh; 
+    margin: 0; /* 移除默认的body边距 */
+    padding: 0; /* 移除默认的body内边距 */
+} 
+

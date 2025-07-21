@@ -1,14 +1,17 @@
 <script lang="ts">
-    import '../app.css'; // 确保你的 Tailwind CSS 已经引入
-    import Sidebar from '$lib/components/Sidebar/Sidebar.svelte';
-    // import Footer from '$lib/components/Footer.svelte'; // 导入 Footer 组件
-
+    import '../app.css';
+    // 为了避免混淆，最好将 Sidebar 组件重命名为 Header 或 Navbar
+    import Header from '$lib/components/Sidebar/Header.svelte';
     let { children } = $props();
 </script>
 
-<div class="flex">
-  <Sidebar />
-  <main class="flex-1 p-8">
+<div class="  min-h-screen">
+  <main class=" w-full p-8 flex-col">
+       <Header class="w-full h-16 bg-white shadow-md" /> 
+
     {@render children()}
   </main>
+ 
+  
+
 </div>

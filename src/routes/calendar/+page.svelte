@@ -2,7 +2,7 @@
     import Calender from "$lib/components/Calendar/Calender.svelte";
 </script>
 
-<div class="min-h-screen">
+<div >
  <Calender />
 </div>
 
