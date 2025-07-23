@@ -1,0 +1,83 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #111; }
+      .line { stroke: white; stroke-width: 2; stroke-dasharray: 5 5; }
+      .star { fill: white; }
+      .shooting-star-body { fill: white; stroke: white; stroke-width: 2; }
+      .shooting-star-tail { stroke: white; stroke-width: 2; }
+      .astro { stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1920" height="1080" class="bg"/>
+
+  <g id="wavy-lines">
+    <path d="M-100 150 C 300 50, 600 250, 1000 150 C 1400 50, 1700 250, 2020 150" class="line"/>
+    <path d="M-100 350 C 300 250, 600 450, 1000 350 C 1400 250, 1700 450, 2020 350" class="line"/>
+    <path d="M-100 550 C 300 450, 600 650, 1000 550 C 1400 450, 1700 650, 2020 550" class="line"/>
+    <path d="M-100 750 C 300 650, 600 850, 1000 750 C 1400 650, 1700 850, 2020 750" class="line"/>
+    <path d="M-100 950 C 300 850, 600 1050, 1000 950 C 1400 850, 1700 1050, 2020 950" class="line"/>
+  </g>
+
+  <g id="small-stars" fill="white">
+    <path d="M 150 50 L 155 55 M 150 55 L 155 50" stroke="white" stroke-width="1.5"/>
+    <path d="M 300 80 L 305 85 M 300 85 L 305 80" stroke="white" stroke-width="1.5"/>
+    <path d="M 500 120 L 505 125 M 500 125 L 505 120" stroke="white" stroke-width="1.5"/>
+    <path d="M 800 90 L 805 95 M 800 95 L 805 90" stroke="white" stroke-width="1.5"/>
+    <path d="M 1100 200 L 1105 205 M 1100 205 L 1105 200" stroke="white" stroke-width="1.5"/>
+    <path d="M 1300 150 L 1305 155 M 1300 155 L 1305 150" stroke="white" stroke-width="1.5"/>
+    <path d="M 1600 220 L 1605 225 M 1600 225 L 1605 220" stroke="white" stroke-width="1.5"/>
+    <path d="M 1800 180 L 1805 185 M 1800 185 L 1805 180" stroke="white" stroke-width="1.5"/>
+    <circle cx="250" cy="400" r="3"/>
+    <circle cx="450" cy="300" r="2"/>
+    <circle cx="650" cy="500" r="3"/>
+    <circle cx="950" cy="450" r="2"/>
+    <circle cx="1250" cy="600" r="3"/>
+    <circle cx="1450" cy="550" r="2"/>
+    <circle cx="1750" cy="650" r="3"/>
+    <circle cx="100" cy="800" r="2"/>
+    <circle cx="300" cy="900" r="3"/>
+    <circle cx="500" cy="850" r="2"/>
+    <circle cx="700" cy="1000" r="3"/>
+    <circle cx="900" cy="950" r="2"/>
+    <circle cx="1100" cy="880" r="3"/>
+    <circle cx="1300" cy="980" r="2"/>
+    <circle cx="1500" cy="820" r="3"/>
+    <circle cx="1700" cy="920" r="2"/>
+  </g>
+
+  <g id="shooting-stars">
+    <g transform="translate(200, 200) rotate(-20)">
+      <polygon points="0,0 10,-25 20,0 45,10 20,20 10,45 0,20 -25,10" class="shooting-star-body"/>
+      <line x1="50" y1="15" x2="250" y2="15" class="shooting-star-tail"/>
+    </g>
+    <g transform="translate(400, 400) rotate(-20)">
+      <polygon points="0,0 10,-25 20,0 45,10 20,20 10,45 0,20 -25,10" class="shooting-star-body"/>
+      <line x1="50" y1="15" x2="250" y2="15" class="shooting-star-tail"/>
+    </g>
+    <g transform="translate(1400, 850) rotate(-20)">
+       <polygon points="0,0 8,-20 16,0 36,8 16,16 8,36 0,16 -20,8" class="shooting-star-body" />
+      <line x1="40" y1="12" x2="200" y2="12" class="shooting-star-tail" />
+    </g>
+  </g>
+
+  <g id="astronauts">
+    <g transform="translate(1550, 300) scale(1.2)">
+      <path d="M 20 20 A 15 15 0 1 1 20 50 A 15 15 0 1 1 20 20 Z" class="astro"/>
+      <path d="M 20 35 A 10 10 0 1 1 20 35.1 Z" class="astro" fill="white"/>
+      <path d="M 35 35 C 45 25, 55 45, 65 35" class="astro"/>
+      <path d="M 20 50 C 10 60, 30 70, 25 80" class="astro"/>
+      <path d="M 20 50 C 30 60, 10 70, 15 80" class="astro"/>
+      <path d="M 5 30 C -5 20, -5 40, 5 50" class="astro"/>
+    </g>
+    <g transform="translate(600, 800) scale(1.3) rotate(15)">
+      <path d="M 20 20 A 15 15 0 1 1 20 50 A 15 15 0 1 1 20 20 Z" class="astro"/>
+      <path d="M 20 35 A 10 10 0 1 1 20 35.1 Z" class="astro" fill="white"/>
+      <path d="M 35 35 C 45 25, 55 45, 65 35" class="astro"/>
+      <path d="M 20 50 C 10 60, 30 70, 25 80" class="astro"/>
+      <path d="M 20 50 C 30 60, 10 70, 15 80" class="astro"/>
+      <path d="M 5 30 C -5 20, -5 40, 5 50" class="astro"/>
+    </g>
+  </g>
+</svg>

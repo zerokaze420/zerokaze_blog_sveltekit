@@ -3,7 +3,7 @@
 @plugin '@tailwindcss/typography';
 
 
- body {
+body {
     background-image: url('/wallhaven-qr6z7d.jpg'); /* 替换为你的图片路径 */
     background-size: cover; /* 让图片覆盖整个背景区域 */
     background-position: center; /* 居中图片 */
@@ -13,4 +13,4 @@
     margin: 0; /* 移除默认的body边距 */
     padding: 0; /* 移除默认的body内边距 */
 } 
-
+ 
