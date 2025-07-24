@@ -6,7 +6,7 @@
   let { class: className = '' } = $props();
 
   // 控制移动端导航菜单的显示状态
-  let isNavOpen = false;
+  let isNavOpen = $state(false);
 
   // 切换导航菜单显示/隐藏的函数
   function toggleNav() {
