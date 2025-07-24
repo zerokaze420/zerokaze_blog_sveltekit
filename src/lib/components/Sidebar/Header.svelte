@@ -32,7 +32,7 @@
     <!-- 汉堡菜单按钮 (仅在小屏幕上显示) -->
     <button
       class="rounded p-2 text-white transition-colors hover:bg-gray-700 md:hidden"
-      on:click={toggleNav}
+      onclick={toggleNav}
       aria-expanded={isNavOpen}
       aria-label="Toggle navigation"
     >

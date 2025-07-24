@@ -26,11 +26,21 @@ signed main() {
   import Counter from '$lib/components/Counter.svelte'; // 假设你有一个计数器元件
   import  RandomImage from '$lib/components/RandomImage.svelte';
   import  Wakatime from '$lib/components/Wakatime.svelte';
+  import ProgressBar from '$lib/components/ProgressBar.svelte';
 </script>
 
 这是一个互动式元件：
 <Counter /> 
 
+---
+
+# 随机图片
+
 <RandomImage/>
 
+
+# 前端学习100小时进度
+
 <Wakatime/>
+
+

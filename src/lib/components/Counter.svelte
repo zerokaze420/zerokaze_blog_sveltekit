@@ -3,8 +3,8 @@
   import { quintOut } from 'svelte/easing';
   import { onDestroy } from 'svelte';
 
-  let count = 0;
-  let pulseDirection: 'up' | 'down' | '' = '';
+  let count = $state(0);
+  let pulseDirection: 'up' | 'down' | '' = $state('');
 
   function increment() {
     count++;
@@ -18,13 +18,15 @@
 
   let timer: ReturnType<typeof setTimeout>;
 
-  // 用 $: 代替 $effect
-  $: if (pulseDirection !== '') {
-    clearTimeout(timer); // 清理上一次的 timer
-    timer = setTimeout(() => {
-      pulseDirection = '';
-    }, 400);
-  }
+  // 使用 $effect 替代 $:
+  $effect(() => {
+    if (pulseDirection !== '') {
+      clearTimeout(timer); // 清理上一次的 timer
+      timer = setTimeout(() => {
+        pulseDirection = '';
+      }, 400);
+    }
+  });
 
   onDestroy(() => {
     clearTimeout(timer);
@@ -32,8 +34,8 @@
 </script>
 
 <div class="counter" class:pulse-up={pulseDirection === 'up'} class:pulse-down={pulseDirection === 'down'}>
-  <button on:click={decrement}>-</button>
-  <button on:click={increment}>+</button>
+  <button onclick={decrement}>-</button>
+  <button onclick={increment}>+</button>
 
   {#key count}
     <span
