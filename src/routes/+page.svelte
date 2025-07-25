@@ -1,10 +1,14 @@
-<h1 class="text-5xl font-extrabold text-center mb-4 leading-tight">
-  欢迎来到我的 SvelteKit 博客！
-</h1>
-<p class="text-lg text-center max-w-2xl px-4">
-  探索这里，发现关于 SvelteKit、前端开发和更多精彩内容。
-  准备好开始你的阅读之旅了吗？
-</p>
-<button class="mt-8 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
-  开始阅读
-</button>
+<script lang="ts">
+   import Wakatime from "$lib/components/Wakatime.svelte";
+
+</script>
+
+
+<div class="columns-2 min-h-screen gap-4 p-6">
+   <div class="w-1/2 break-inside-avoid">
+    <Wakatime/>
+  </div>
+  <div class="w-1/2 break-inside-avoid">
+    <p>This is the second column element.</p>
+  </div>
+</div>

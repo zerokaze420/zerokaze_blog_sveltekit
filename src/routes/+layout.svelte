@@ -11,7 +11,7 @@
 
 <QueryClientProvider client={queryClient}>
 <div class="  min-h-screen">
-  <main class=" w-full p-8 flex-col">
+  <main class=" w-full p-8">
        <Header class="w-full h-16 bg-white shadow-md" /> 
 
     {@render children()}
