@@ -93,7 +93,7 @@
         
         <div class="space-y-2">
           <label for="activity-progress" class="block text-md font-medium text-gray-800">总投入时间</label>
-          <ProgressBar id="activity-progress" progress={frontEndTime / 3600} /> 
+          <ProgressBar progress={frontEndTime / 3600} /> 
           <p class="text-sm text-gray-500">已投入: <span class="font-semibold text-gray-700">{(frontEndTime / 3600).toFixed(1)} 小时</span></p>
         </div>
 
