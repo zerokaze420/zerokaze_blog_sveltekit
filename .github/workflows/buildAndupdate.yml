@@ -4,43 +4,36 @@ name: Build and Push Container to GitHub Packages
 on:
   push:
     branches:
-      - main # 当推送到 main 分支时触发
+      - main
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest # 使用最新的 Ubuntu 运行器
+    runs-on: ubuntu-latest
     permissions:
-      contents: read # 允许读取仓库内容
-      packages: write # 允许写入 GitHub Packages (这是推送到容器注册表所必需的)
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # 检查代码到工作目录
+        uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry # 登录到 ghcr.io
-        uses: docker/login-action@v3 # 可以使用 docker/login-action，它也支持 Podman 后端
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }} # 使用 GitHub Actions 的内置用户名 (仓库所有者)
-          password: ${{ secrets.GITHUB_TOKEN }} # 使用内置的 GITHUB_TOKEN 作为密码 (具有 packages:write 权限)
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Buildx (Optional, but good for multi-platform builds)
-        # Buildx 是 Docker 的一个插件，支持构建多平台镜像。
-        # 如果你只构建 Linux/amd64 镜像，这一步不是严格必需的，但通常是最佳实践。
+      - name: Set up Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push Docker image # 构建并推送 Docker 镜像
-        uses: docker/build-push-action@v5 # 使用 docker/build-push-action
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
         with:
-          context: . # 构建上下文是当前目录
-          push: true # 推送镜像
-          tags: | # 定义镜像标签
-            ghcr.io/${{ github.repository }}:latest # 格式为 ghcr.io/用户名/仓库名:latest
-            ghcr.io/${{ github.repository }}:${{ github.sha }} # 也可以用 commit SHA 作为标签
-          cache-from: type=gha # 启用 GitHub Actions 缓存
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+          cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Verify pushed image (Optional)
-        run: |
-          echo "Image pushed to ghcr.io/${{ github.repository }}:latest"
-          echo "You can pull it using: podman pull ghcr.io/${{ github.repository }}:latest"
