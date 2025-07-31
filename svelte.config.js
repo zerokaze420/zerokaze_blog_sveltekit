@@ -28,7 +28,12 @@ const config = {
         // 保留你为 GitHub Pages 设置的路径
         paths: {
             base: process.env.NODE_ENV === 'production' ? '/zerokaze_blog_sveltekit' : ''
+        },
+        prerender: {
+            entries: [] // 设置为空数组，表示不预渲染任何页面
         }
+        
+        
     },
 
 };
