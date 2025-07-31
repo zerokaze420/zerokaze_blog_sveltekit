@@ -87,9 +87,9 @@
   {:else if activityData}
     {#if activityData.data?.languages && activityData.data.languages.length > 0}
       <div class="flex flex-col space-y-5">
-        <h3 class="text-2xl font-bold text-gray-900 border-b pb-3 mb-2">活动统计</h3>
+        <h3 class="text-2xl font-bold text-gray-900 border-b pb-3 mb-2">零风的前端学习时长统计</h3>
         
-        <p class="text-gray-700">您在此次活动中有所收获，以下是相关进度概览：</p>
+        <p class="text-gray-700"></p>
         
         <div class="space-y-2">
           <label for="activity-progress" class="block text-md font-medium text-gray-800">总投入时间</label>

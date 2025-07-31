@@ -8,7 +8,5 @@
    <div class="w-1/2 break-inside-avoid">
     <Wakatime/>
   </div>
-  <div class="w-1/2 break-inside-avoid">
-    <p>This is the second column element.</p>
-  </div>
+ 
 </div>
