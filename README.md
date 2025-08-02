@@ -1,12 +1,10 @@
 
 # zerokaze_blog_sveltekit
 
-# 个人博客
+基于 sveltekit 现代化的个人博客， 通过 sveltekit 构建，使用 tailwindcss 构建样式，使用 typescript 构建类型，使用 nix 构建环境。
 
-现代化的个人博客
 
->目前在dev阶段，后期可能会有大的变动
-
+>目前在dev阶段，后期可能会有大的变动，欢迎提issue
 
 
 ## Todo
