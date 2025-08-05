@@ -1,25 +1,19 @@
-
 # zerokaze_blog_sveltekit
 
-基于 sveltekit 现代化的个人博客， 通过 sveltekit 构建，使用 tailwindcss 构建样式，使用 typescript 构建类型，使用 nix 构建环境。
 
 
->目前在dev阶段，后期可能会有大的变动，欢迎提issue
+A modern personal blog based on SvelteKit. Built with SvelteKit, using TailwindCSS for styling, TypeScript for types, and Nix for the build environment.
 
+Currently in dev mode, major changes may occur later. Issues are welcome.
 
 ## Todo
 
->按照重要度排序
+>Sort by priority
 
-* 修复编译报错
-* 性能优化，去掉网站上的静态图片，更换为SVG或者纯色背景
-* 性能优化
+* Fix compilation errors
+* Optimize performance by removing static images from the website and replacing them with SVG or solid color backgrounds
+* Optimize performance
 
-## 技术栈
+## Technology Stack
 
-bun + sveltekit + tailwindcss + typescript + nix
-
-
-
-
-
+bun + SvelteKit + TailwindCSS + TypeScript + Nix
