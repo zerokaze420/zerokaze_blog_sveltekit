@@ -3,14 +3,29 @@
 @plugin '@tailwindcss/typography';
 
 
+:root {
+    --bg: #080B12;
+    --text: #CFB3E6;
+    --broder-gred1: #6C6499;
+    --broder-gred2: #111222;
+    --radial-center: rgba(173, 155, 255, 0.3);
+    --radial-edge: rgba(11, 12, 22, 0.3);
+    --shadow: rgba(173, 155, 255, 0.5);
+}
+
+
 body {
-    background-image: url('/wallhaven-qr6z7d.jpg'); /* 替换为你的图片路径 */
-    background-size: cover; /* 让图片覆盖整个背景区域 */
-    background-position: center; /* 居中图片 */
-    background-repeat: no-repeat; /* 不重复图片 */
-    background-attachment: fixed; /* (可选) 让背景图片固定，不随滚动条滚动 */
-    min-height: 100vh; 
-    margin: 0; /* 移除默认的body边距 */
-    padding: 0; /* 移除默认的body内边距 */
-} 
- 
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3em;
+  background-color: var(--bg);
+  font-family: "Recoleta";
+  margin: 1em;
+  box-sizing: border-box;
+  color: var(--text);
+  transition: all ease 0.3s;
+}
