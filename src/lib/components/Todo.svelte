@@ -3,17 +3,17 @@
     let todos: Todo[] = [
         {
             id: 1,
-            text: '学习Svelte',
+            text: '😊学习Svelte',
             completed: false
         },
         {
             id: 2,
-            text: '搭建博客网站',
+            text: '📚搭建博客网站',
             completed: true
         },
         {
             id: 3,
-            text: 'lychee 工具',
+            text: '🐂lychee 工具',
             completed: false
         }
     ]
