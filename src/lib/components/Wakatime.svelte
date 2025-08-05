@@ -58,7 +58,7 @@
   // console.log(topLanguage);
 </script>
 
-<div class="rounded-xl shadow-lg p-6 bg-white border border-gray-100 max-w-sm mx-auto my-8">
+<div class="bg-white max-w-sm mx-auto my-8 p-8 rounded-lg">
   {#if isLoading}
     <div class="flex flex-col items-center justify-center py-8 text-gray-600">
       <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

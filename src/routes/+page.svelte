@@ -5,7 +5,7 @@
 </script>
 
 
-<div class="columns-2 min-h-screen gap-4 p-6 w-full">
+<div class="columns-2 min-h-screen gap-4 p-6 w-full flex">
    <div class="w-1/2 break-inside-avoid">
     <Wakatime/>
     
