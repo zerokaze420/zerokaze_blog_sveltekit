@@ -1,36 +1,32 @@
 <script lang="ts">
   import { fly, slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
-  import { onDestroy } from 'svelte';
+  import { onDestroy, tick } from 'svelte';
 
   let count = $state(0);
   let pulseDirection: 'up' | 'down' | '' = $state('');
 
+  // 辅助函数，用于强制重绘和触发动画
+  async function triggerPulseAnimation(direction: 'up' | 'down') {
+    // 1. 先将动画类名清空
+    pulseDirection = '';
+
+    // 2. 使用 tick() 等待 DOM 更新，强制浏览器重绘
+    await tick();
+
+    // 3. 重新设置动画类名，触发动画
+    pulseDirection = direction;
+  }
+
   function increment() {
     count++;
-    pulseDirection = 'up';
+    triggerPulseAnimation('up');
   }
 
   function decrement() {
     count--;
-    pulseDirection = 'down';
+    triggerPulseAnimation('down');
   }
-
-  let timer: ReturnType<typeof setTimeout>;
-
-  // 使用 $effect 替代 $:
-  $effect(() => {
-    if (pulseDirection !== '') {
-      clearTimeout(timer); // 清理上一次的 timer
-      timer = setTimeout(() => {
-        pulseDirection = '';
-      }, 400);
-    }
-  });
-
-  onDestroy(() => {
-    clearTimeout(timer);
-  });
 </script>
 
 <div class="counter" class:pulse-up={pulseDirection === 'up'} class:pulse-down={pulseDirection === 'down'}>
@@ -49,7 +45,7 @@
 </div>
 
 <style>
-  /* 计数器容器基础样式 */
+  /* 样式与你的代码相同，无需修改 */
   .counter {
     display: flex;
     align-items: center;
@@ -62,10 +58,9 @@
     background-color: #282c34;
     color: #61dafb;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease-out; /* 为脉冲动画添加平滑过渡 */
+    transition: transform 0.2s ease-out;
   }
 
-  /* 按钮样式 */
   .counter button {
     background-color: #61dafb;
     color: #282c34;
@@ -88,28 +83,25 @@
     transform: translateY(0);
   }
 
-  /* 动画数字样式 */
   .animated-number {
-    display: inline-block; /* 确保动画效果能正确应用 */
-    min-width: 50px; /* 确保数字变化时宽度稳定 */
+    display: inline-block;
+    min-width: 50px;
     text-align: center;
     position: relative;
   }
 
-  /* 新增：脉冲动画的关键帧 */
   @keyframes pulseUp {
     0% { transform: scale(1); }
-    50% { transform: scale(1.05); } /* 稍微放大 */
+    50% { transform: scale(1.05); }
     100% { transform: scale(1); }
   }
 
   @keyframes pulseDown {
     0% { transform: scale(1); }
-    50% { transform: scale(0.95); } /* 稍微缩小 */
+    50% { transform: scale(0.95); }
     100% { transform: scale(1); }
   }
 
-  /* 新增：应用脉冲动画的类 */
   .pulse-up {
     animation: pulseUp 0.4s ease-out forwards;
   }
