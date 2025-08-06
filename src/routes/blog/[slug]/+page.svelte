@@ -9,9 +9,9 @@
 <article class="min-h-screen">
   <h1 class="text-center">{data.metadata.title}</h1>
   <div class="prose prose-lg prose-slate mx-auto
+              bg-white
               rounded-lg                  /* 圆角 */
               p-5                         /* 内边距 */
-         
               ">
     {#key data.metadata.slug}
       {#await postContentPromise}
