@@ -1,6 +1,8 @@
 <script lang="ts">
   // 导入 SvelteKit 的 base 路径，用于正确生成链接
   import { base } from '$app/paths';
+  import { onMount } from 'svelte';
+
 
   // 从父组件接收 class 属性，并提供一个默认空字符串
   let { class: className = '' } = $props();
@@ -12,6 +14,34 @@
   function toggleNav() {
     isNavOpen = !isNavOpen;
   }
+
+  let isBarVisible = true;
+  let lastScrollY = 0;
+    onMount(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // 如果当前滚动位置大于上一次的，说明在向下滚动
+      // 并且滚动位置超过了Bar的高度，就隐藏它
+      if (currentScrollY > lastScrollY && currentScrollY > 60) {
+        isBarVisible = false;
+      } 
+      // 如果当前滚动位置小于上一次的，说明在向上滚动
+      else if (currentScrollY < lastScrollY) {
+        isBarVisible = true;
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // 记得在组件销毁时移除事件监听器
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
+
 </script>
 
 <!-- 
@@ -19,7 +49,7 @@
   它结合了组件自身的默认样式 (sticky, bg-gray-800 等) 和从父组件传入的 className。
   这样，你在使用 <Header class="..."/> 时，传入的 class 会被应用到这里。
 -->
-  <div class="mx-auto flex max-w-7xl items-center justify-between p-4">
+  <div class="mx-auto flex max-w-7xl items-center justify-between p-4" class:hidden={!isBarVisible}>
     <!-- 博客品牌/Logo -->
     <div class="nav-brand">
       <!-- 
