@@ -6,7 +6,7 @@
 on:
   push:
     branches:
-      - dev # 确保此分支与你的主分支名称一致
+      - main # 确保此分支与你的主分支名称一致
 
 jobs:
   review:
