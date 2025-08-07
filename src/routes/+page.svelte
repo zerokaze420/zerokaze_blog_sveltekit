@@ -5,12 +5,15 @@
 </script>
 
 
-<div class="columns-2 min-h-screen gap-4 p-6 w-full flex">
-   <div class="w-1/2 break-inside-avoid">
+<div class="columns-3 min-h-screen gap-1 p-1 w-full flex">
+   <div class="w-1/3 break-inside-avoid">
     <Wakatime/>
     
   </div>
-   <div class="w-1/2 break-inside-avoid">
+   <div class="w-1/3 break-inside-avoid">
+      <Todo/>    
+  </div>
+   <div class="w-1/3 break-inside-avoid">
       <Todo/>    
   </div>
  
