@@ -1,6 +1,5 @@
 # zerokaze_blog_sveltekit
 
-[]
 
 A modern personal blog based on SvelteKit. Built with SvelteKit, using TailwindCSS for styling, TypeScript for types, and Nix for the build environment.
 
