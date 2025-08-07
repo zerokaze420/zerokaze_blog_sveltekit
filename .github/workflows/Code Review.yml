@@ -1,16 +1,19 @@
-name: DeepSeek Code Review on Push
+# DeepSeek Code Review on Push
+#
+# 此工作流在每次推送到 dev 分支时触发，自动使用 DeepSeek AI 进行代码审查。
+# 如果 AI 发现问题，它会创建一个包含审查意见的 GitHub Issue。
 
 on:
   push:
     branches:
-      - main # 确保此分支与你的主分支名称一致
+      - dev # 确保此分支与你的主分支名称一致
 
 jobs:
   review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      issues: write # 添加此权限以允许创建 Issue
+      issues: write # 允许创建 Issue
       pull-requests: write # 保留此权限以在需要时操作 Pull Request
     steps:
       - name: Checkout repository
@@ -38,6 +41,7 @@ jobs:
           echo "DIFF_CONTENT<<EOF" >> $GITHUB_ENV
           echo "$DIFF" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+
       - name: Request DeepSeek API for code review
         id: deepseek_review
         uses: actions/github-script@v6
@@ -52,11 +56,14 @@ jobs:
               core.setOutput('review_comment', '代码审查通过，没有发现代码变动。');
               return;
             }
-            const prompt = `你是一名资深软件工程师，请根据以下代码差异进行专业的代码审查。请重点关注潜在的bug、性能问题、可读性和最佳实践。请以简洁的Markdown格式返回审查意见。
+
+            // 提示词保持不变，以便 AI 仍然提供评分
+            const prompt = `你是一名资深软件工程师，请根据以下代码差异进行专业的代码审查。请重点关注潜在的bug、性能问题、可读性和最佳实践。请以简洁的Markdown格式返回审查意见。在你的审查意见的开头，请用“[评分: n/5]”的格式给出本次代码修改的评分，其中n为1到5的整数。
             ---
             ${DIFF_CONTENT}
             ---
             请返回审查结果。如果没有发现任何需要改进的问题，请回复"代码审查通过，没有发现问题。"`;
+
             const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
               method: 'POST',
               headers: {
@@ -79,6 +86,7 @@ jobs:
             console.log("DeepSeek的审查意见:", review_comment);
             // 将审查意见保存到输出变量中
             core.setOutput('review_comment', review_comment);
+
       - name: Create Issue from review
         if: steps.deepseek_review.outputs.review_comment && !contains(steps.deepseek_review.outputs.review_comment, '代码审查通过，没有发现问题。')
         uses: actions/github-script@v6
@@ -88,10 +96,14 @@ jobs:
           script: |
             const { REVIEW_COMMENT } = process.env;
             const commitSha = context.sha.substring(0, 7); // 获取短 SHA
-            // 构建 Issue 标题和正文
+
+            // 构建 Issue 标题，移除了评分
             const issueTitle = `🤖 代码审查建议：Commit ${commitSha}`;
+            
+            // Issue 描述正文包含完整的审查意见，其中包含了评分
             const issueBody = `### 🤖 DeepSeek AI 代码审查报告\n\n**Commit:** ${context.sha}\n**作者:** ${context.actor}\n\n${REVIEW_COMMENT}\n\n---
             <br/>*此 Issue 由 DeepSeek AI 自动创建，用于跟踪代码审查建议。*`;
+
             // 使用 github.rest.issues.create 方法创建 Issue
             github.rest.issues.create({
               owner: context.repo.owner,
