@@ -90,14 +90,9 @@ jobs:
             const { REVIEW_COMMENT } = process.env;
             const commitSha = context.sha.substring(0, 7); // 获取短 SHA
             
-            // 提取审查意见的前50个字符作为描述
-            let description = REVIEW_COMMENT.trim().split('\n')[0].substring(0, 50);
-            if (REVIEW_COMMENT.length > 50) {
-              description += '...'; // 添加省略号以示截断
-            }
-
-            // 构建新的 Issue 标题
-            const issueTitle = `🤖 代码审查建议: ${description} (Commit ${commitSha})`;
+            // 构建新的 Issue 标题，格式为 [需要改进][审查发现]Commit <sha>
+            // 因为此步骤只会在审查发现问题时运行，所以直接使用“需要改进”
+            const issueTitle = `[需要改进][审查发现]Commit ${commitSha}`;
                         
             // Issue 描述正文包含完整的审查意见，其中包含了评分
             const issueBody = `### 🤖 DeepSeek AI 代码审查报告\n\n**Commit:** ${context.sha}\n**作者:** ${context.actor}\n\n${REVIEW_COMMENT}\n\n---
