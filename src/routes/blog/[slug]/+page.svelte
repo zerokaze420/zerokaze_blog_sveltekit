@@ -33,10 +33,7 @@
 
 <article class="min-h-screen" bind:this={articleElement}>
   <h1 class="text-center">{data.metadata.title}</h1>
-  <div class="prose prose-lg prose-slate mx-auto
-              bg-white
-              rounded-lg
-              p-5">
+  <div >
     {#key data.metadata.slug}
       {#await postContentPromise}
         <p>正在加载...</p>
