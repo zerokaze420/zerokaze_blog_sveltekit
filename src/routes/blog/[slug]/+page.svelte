@@ -48,7 +48,5 @@
 </article>
 
 <style>
-  .prose {
-    color: var(--text) !important;
-  }
+
 </style>
