@@ -49,15 +49,15 @@
   // Your resume data (modify with your real information here)
   const resumeData: ResumeData = {
     name: "洪华俊",
-    title: "--",
+    title: "",
     contact: {
       email: "erfu81856@gmail.com",
       phone: "+86 18062072170", // Taiwan contact example
-      github: "github.com/hashcowuwu",
+      github: "github.com/zerokaze420",
     //   website: "yourwebsite.com"
     },
     // 精简总结，控制在2-3行
-    summary: "一位充满热情的开发者，6年Linux日常使用经验，精通ArchLinux, Gentoo, NixOS等发行版下的开发、编程与测试脚本. 熟练编写Shell脚本，Python脚本。熟悉Vue, Next.js, Svelte等前端框架基础，对Linux以及操作系统有强烈兴趣。熟练编写githubcicd脚本，并利用GitHub Actions实现CI/CD。",
+    summary: "一位充满热情的开发者, 6年 Linux 日常使用经验, 精通 Arch Linux , Gentoo, NixOS 等发行版下的开发、编程与测试脚本. 熟练编写 Shell 脚本, Python 脚本。熟悉 Vue, Next.js, Svelte等前端框架基础 , 对 Linux 以及操作系统有强烈兴趣。熟练编写 github ci-cd 脚本 , 并利用 GitHub Actions 实现CI-CD。",
     experience: [
       {
         title: "运维",
@@ -66,9 +66,9 @@
         endDate: "至今",
         description: [
           // 精简描述
-          "搭建后端项目CICD流程，push后通过semantic-release自动确认版本发布release和package。",
-          "利用GitHub Actions和Podman实现持续集成/部署及告警集成,到服务器上进行编译构建发布到Podman容器中运行。当构建失败后通过飞书webhook和github email进行告警，以及说明日志。",
-          "通过Nix优化CICD，确保构建可复现并解决环境依赖问题。",
+          "搭建后端项目 CI-CD 流程, push 后通过 semantic-release 自动确认版本发布 release 和 package。",
+          "利用 GitHub Actions 和 Podman 实现持续集成/部署及告警集成,到服务器上进行编译构建发布到 Podman 容器中运行。当构建失败后通过飞书 webhook 和 github email 进行告警，以及说明日志。",
+          "通过Nix优化CI-CD , 确保构建可复现并解决环境依赖问题。",
         ]
       }
     ],
@@ -130,7 +130,7 @@
         endDate: "-",
         description: [
           // 精简描述
-          "基于Golang实现动态服务运行状况检测工具。,是一款集成了 CI/CD 部署、系统监控 的监控程序实现对Systemd服务的监控，通过正则表达式将日志过滤发送到飞书。",
+          "基于Golang实现动态服务运行状况检测工具。,是一款集成了 CI/CD 部署、系统监控 的监控程序实现对Systemd服务的监控, 通过正则表达式将日志过滤发送到飞书。",
         ]
       },
 
@@ -141,20 +141,20 @@
         endDate: "2023年5月",
         description: [
           // 精简描述
-          "使用Svelte/TypeScript构建响应式个人作品集网站。",
-          "集成动态CMS并部署于GitHub Actions，实现CI/CD。",
+          "使用 Svelte/TypeScript 构建响应式个人作品集网站。",
+          "集成动态 CMS 并部署于 GitHub Actions, 实现 CI-CD。",
         ]
       }
     ],
     openSourceContributions: [
       {
-        title: "NIXOSCN文档修复",
+        title: "NIXOSCN 文档修复",
         company: "NIXCN",
         startDate: "2024年1月",
         endDate: "至今",
         description: [
           // 精简描述
-          "维护更新NIXOSCN陈旧页面，修复了关于安装的错误信息。",
+          "维护更新NIXOSCN陈旧页面, 修复了关于安装的错误信息。",
           "PR链接: https://github.com/NixOS-CN/nixos-cn.github.io/pull/37",
         ]
       },
@@ -165,7 +165,7 @@
         endDate: "2023年10月",
         description: [
           // 精简描述
-          "参与HaikuOS国际化翻译工作。",
+          "参与 HaikuOS 国际化翻译工作。",
           "个人贡献链接: https://i18n.haiku-os.org/pootle/user/Honghuajun/",
         ]
       }
