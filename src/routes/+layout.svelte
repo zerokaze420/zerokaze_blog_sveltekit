@@ -1,23 +1,5 @@
-<script lang="ts">
-    import '../app.css';
-    // 为了避免混淆，最好将 Sidebar 组件重命名为 Header 或 Navbar
-    import Header from '$lib/components/Sidebar/Header.svelte';
-    import { QueryClientProvider, QueryClient } from '@tanstack/svelte-query';
-
-    const queryClient = new QueryClient();
-
-    let { children } = $props();
+<script>
+  import '../app.css'; // 從根佈局來看，這個相對路徑是正確的
 </script>
 
-<QueryClientProvider client={queryClient}>
-<div class="w-full  min-h-screen">
-  <main class=" w-full p-8">
-       <Header class="w-full h-16 bg-white shadow-md" /> 
-
-    {@render children()}
-  </main>
-  </div>
- </QueryClientProvider>
-
-  
-
+<slot />

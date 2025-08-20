@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Todo } from "../../type/todo";
+    import type { Todo } from "../../types/todo";
     let todos: Todo[] = [
         {
             id: 1,

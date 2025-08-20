@@ -4,7 +4,8 @@ import type { PostMetadata } from '$lib/types';
 
 export const load: PageServerLoad = async ({ params }) => {
   try {
-    const postModule = await import(`../../../lib/posts/${params.slug}.md`);
+    
+    const postModule = await import(`../../../../lib/posts/${params.slug}.md`);
     
     // 从 frontmatter 获取原始元数据
     const metadata: PostMetadata = postModule.metadata;

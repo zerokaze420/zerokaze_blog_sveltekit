@@ -4,7 +4,7 @@
     createQuery,
     dataTagErrorSymbol,
   } from "@tanstack/svelte-query";
-  import type { ActivityResponse, Language } from "../../type/activity";
+  import type { ActivityResponse, Language } from "../../types/activity";
   import axios from "axios";
   import ProgressBar from "./ProgressBar.svelte";
 

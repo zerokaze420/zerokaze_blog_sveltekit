@@ -68,8 +68,19 @@
           // 精简描述
           "搭建后端项目 CI-CD 流程, push 后通过 semantic-release 自动确认版本发布 release 和 package。",
           "利用 GitHub Actions 和 Podman 实现持续集成/部署及告警集成,到服务器上进行编译构建发布到 Podman 容器中运行。当构建失败后通过飞书 webhook 和 github email 进行告警，以及说明日志。",
-          "通过Nix优化CI-CD , 确保构建可复现并解决环境依赖问题。",
+          "通过 Nix 优化CI-CD , 确保构建可复现并解决环境依赖问题。",
         ]
+      },
+      {
+        title: "开发",
+        company: "字节筑梦",
+        startDate: "2024年7月",
+        endDate: "2024年9月",
+        description: [
+          "负责编写.NET ASP Web 项目 CI-CD 流程, 构建并部署到服务器。",
+          "使用 TypeScript 构建了个人博客网站, 集成了动态 CMS 并部署于 GitHub Actions, 实现 CI-CD。",
+        ]
+
       }
     ],
     education: [
@@ -111,7 +122,8 @@
           { name: "JavaScript (ES6+)" },
           { name: "HTML5" },
           { name: "CSS3 / SCSS" },
-          { name: "React / Vue (基础)" }
+          { name: "React / Vue (基础)" },
+          { name: "Rust (基础)"}
         ]
       },
       {
@@ -173,7 +185,7 @@
   };
 </script>
 
-<main class="font-serif max-w-5xl mx-auto my-3 px-6 py-6 shadow-lg bg-white leading-tight text-gray-800 rounded-md">
+<!-- <main class="font-serif max-w-5xl mx-auto my-3 px-6 py-6 shadow-lg bg-white leading-tight text-gray-800 rounded-md"> -->
   <header class="text-center mb-6 pb-3 border-b border-gray-300">
     <h1 class="m-0 text-gray-800 text-2xl uppercase tracking-wide">
       {resumeData.name}
@@ -248,20 +260,15 @@
     <h3 class="text-blue-700 border-b border-gray-300 pb-1 mb-3 text-lg uppercase tracking-tight">
       技能
     </h3>
-    {#each resumeData.skills as skillCat}
-      <div class="mb-1">
-        <h5 class="m-0 mb-0.5 text-gray-700 text-sm font-bold">
-          {skillCat.category}
-        </h5>
-        <ul class="flex flex-wrap p-0 m-0 list-none">
-          {#each skillCat.skills as skill}
-            <li class="bg-blue-50 px-1 py-0.5 mr-0.5 mb-0.5 rounded text-xs text-blue-800 border border-blue-200">
-              {skill.name}
-            </li>
-          {/each}
-        </ul>
-      </div>
-    {/each}
+    <ul class="flex flex-wrap p-0 m-0 list-none">
+      {#each resumeData.skills as skillCat}
+        {#each skillCat.skills as skill}
+          <li class="bg-blue-50 px-1 py-0.5 mr-0.5 mb-0.5 rounded text-xs text-blue-800 border border-blue-200">
+            {skill.name}
+          </li>
+        {/each}
+      {/each}
+    </ul>
   </section>
 
   {#if resumeData.projects && resumeData.projects.length > 0}
@@ -305,4 +312,4 @@
       {/each}
     </section>
   {/if}
-</main>
+<!-- </main> -->
