@@ -15,7 +15,7 @@
     isNavOpen = !isNavOpen;
   }
 
-  let isBarVisible = true;
+  let isBarVisible = $state(true);
   let lastScrollY = 0;
     onMount(() => {
     const handleScroll = () => {
