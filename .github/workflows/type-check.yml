@@ -1,0 +1,44 @@
+# .github/workflows/type-check.yml
+
+name: SvelteKit Type Check (Bun)
+
+# 触发器配置
+on:
+  push:
+    branches:
+      - main  # 当代码推送到 main 分支时触发
+  pull_request:
+    branches:
+      - main  # 当有 Pull Request 指向 main 分支时触发
+
+# 任务配置
+jobs:
+  type-check:
+    name: Run svelte-check with Bun
+    
+    # 运行环境
+    runs-on: ubuntu-latest
+
+    # 步骤
+    steps:
+      # 步骤1: 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 步骤2: 设置 Bun 环境
+      # 使用官方推荐的 action 来安装 bun
+      # 它会自动处理缓存，加速后续运行
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        # with:
+        #   bun-version: latest # 可以指定版本，或使用最新版
+
+      # 步骤3: 安装项目依赖
+      # --frozen-lockfile 确保 CI 环境使用 bun.lockb 文件中的精确版本
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # 步骤4: 运行类型检查
+      # 执行 package.json 中定义的 "check" 脚本
+      - name: Run type check
+        run: bun run check
