@@ -29,7 +29,19 @@
               prose-slate 
               mx-auto
               prose-h2:text-white
-              prose-p:text-purple
+              prose-p:text-white
+              prose-ul:text-white
+              prose-code:text-white
+              prose-code:bg-gray-800
+              prose-code:rounded-lg
+              prose-code:p-1
+              prose-code:font-mono
+              prose-code:text-sm
+              prose-code:bg-opacity-50
+              prose-code:shadow-sm
+              prose-code:border-none
+              prose-code:overflow-x-auto
+
               rounded-lg
               p-5
               shadow-lg
