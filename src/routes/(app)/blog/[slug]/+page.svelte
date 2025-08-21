@@ -41,7 +41,6 @@
               prose-code:shadow-sm
               prose-code:border-none
               prose-code:overflow-x-auto
-
               rounded-lg
               p-5
               shadow-lg
