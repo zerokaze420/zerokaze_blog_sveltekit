@@ -23,9 +23,13 @@
 
 <article class="min-h-screen">
   <h1 class="text-center">{data.metadata.title}</h1>
-  <div class="prose prose-lg prose-slate mx-auto
-              bg-black/20
-              [backdrop-filter:blur(10px)]
+  <div class="prose 
+              text-shadow: none
+              prose-lg 
+              prose-slate 
+              mx-auto
+              prose-h2:text-white
+              prose-p:text-purple
               rounded-lg
               p-5
               shadow-lg
