@@ -26,3 +26,7 @@ export const load: PageServerLoad = async ({ params }) => {
     throw error(404, '文章未找到');
   }
 };
+
+
+
+export const prerender = true;
