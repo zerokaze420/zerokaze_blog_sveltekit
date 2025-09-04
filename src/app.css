@@ -3,7 +3,7 @@
 @plugin '@tailwindcss/typography';
 
 
-:root {
+/* :root {
     --bg: #080B12;
     --text: #CFB3E6;
     --broder-gred1: #6C6499;
@@ -28,4 +28,4 @@ body {
   box-sizing: border-box;
   color: var(--text);
   transition: all ease 0.3s;
-}
+} */
