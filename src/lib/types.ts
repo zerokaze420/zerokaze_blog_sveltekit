@@ -1,11 +1,12 @@
 export interface PostMetadata {
   title: string;
-  date: string;
-  // 其他你需要的元数据字段
+  date: string; // Keep date for compatibility if needed, or remove if publishDate is the canonical date
+  publishDate: string; // Added publishDate
+  author: string;      // Added author
+  tags: string[];
   slug: string;
+  description: string;
 }
-
-
 
 declare namespace App {
 	// interface Error {}
@@ -18,6 +19,9 @@ declare namespace App {
 		title: string;
 		date: string;
 		tags: string[];
+    description: string;
+    publishDate: string;
+    author: string;
 	}
 
 	interface Post {
