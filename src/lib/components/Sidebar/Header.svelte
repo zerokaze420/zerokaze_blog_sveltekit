@@ -1,6 +1,7 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import { onMount } from 'svelte';
+  import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
   let { class: className = '' } = $props();
 
@@ -54,6 +55,9 @@
       <a href={`${base}/about`} class="nav-link nav-link-about">关于我</a>
     </nav>
 
+    <div class="header-actions">
+      <ThemeToggle />
+
     <!-- Hamburger -->
     <button
       class="hamburger"
@@ -71,6 +75,7 @@
         </svg>
       {/if}
     </button>
+    </div>
   </div>
 
   <!-- Mobile Nav -->
@@ -91,15 +96,15 @@
     top: 0;
     z-index: 50;
     width: 100%;
-    background: rgba(11, 17, 32, 0.75);
+    background: var(--color-bg-header);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-border);
     transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   }
 
   .header-scrolled {
-    background: rgba(11, 17, 32, 0.92);
+    background: var(--color-bg-header-scrolled);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 
@@ -131,7 +136,7 @@
   .logo-text {
     font-size: 1.25rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    background: linear-gradient(135deg, var(--color-accent-gradient-start), var(--color-accent-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -154,21 +159,21 @@
     border-radius: 8px;
     font-size: 0.9rem;
     font-weight: 500;
-    color: #94a3b8;
+    color: var(--color-text-muted);
     text-decoration: none;
     transition: all 0.2s ease;
     position: relative;
   }
 
   .nav-link:hover {
-    color: #e2e8f0;
+    color: var(--color-text-secondary);
     background: rgba(255, 255, 255, 0.05);
   }
 
   .nav-link-about {
     background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(167, 139, 250, 0.12));
     border: 1px solid rgba(96, 165, 250, 0.15);
-    color: #93c5fd;
+    color: var(--color-accent-light);
     margin-left: 0.5rem;
   }
 
@@ -181,7 +186,7 @@
     display: block;
     padding: 0.5rem;
     border-radius: 8px;
-    color: #94a3b8;
+    color: var(--color-text-muted);
     background: none;
     border: none;
     cursor: pointer;
@@ -189,7 +194,7 @@
   }
 
   .hamburger:hover {
-    color: #e2e8f0;
+    color: var(--color-text-secondary);
   }
 
   @media (min-width: 768px) {
@@ -198,8 +203,15 @@
     }
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+  }
+
   .nav-mobile {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--color-border);
     padding: 0.5rem;
     animation: slideDown 0.2s ease-out;
   }
@@ -220,13 +232,13 @@
     padding: 0.75rem 1rem;
     border-radius: 8px;
     font-size: 1rem;
-    color: #94a3b8;
+    color: var(--color-text-muted);
     text-decoration: none;
     transition: all 0.2s;
   }
 
   .nav-link-mobile:hover {
-    color: #e2e8f0;
+    color: var(--color-text-secondary);
     background: rgba(255, 255, 255, 0.05);
   }
 </style>

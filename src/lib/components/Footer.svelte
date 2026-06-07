@@ -33,11 +33,11 @@
 <style>
   .footer {
     margin-top: auto;
-    background: rgba(15, 23, 42, 0.9);
+    background: var(--color-bg-footer);
     backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--color-border);
     padding: 3rem 2rem 1.5rem;
-    color: #94a3b8;
+    color: var(--color-text-muted);
   }
 
   .footer-content {

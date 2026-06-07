@@ -2,25 +2,246 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-/* 全局暗色主题背景 */
-body {
-  background: #0b1120;
-  background-image:
-    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(96, 165, 250, 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(167, 139, 250, 0.06), transparent),
-    radial-gradient(ellipse 50% 40% at 20% 70%, rgba(244, 114, 182, 0.04), transparent);
-  background-attachment: fixed;
-  min-height: 100vh;
-  color: #e2e8f0;
+/* LXGW WenKai 字体 */
+@import '@fontsource/lxgw-wenkai/index.css';
+
+/* highlight.js — Code Syntax Theme */
+@import 'highlight.js/styles/atom-one-dark.css' layer(hljs-base);
+
+/* 亮色主题代码高亮覆盖 */
+[data-theme="light"] .hljs {
+  color: #383a42;
+  background: #fafafa;
+}
+[data-theme="light"] .hljs-comment,
+[data-theme="light"] .hljs-quote { color: #a0a1a7; font-style: italic; }
+[data-theme="light"] .hljs-doctag,
+[data-theme="light"] .hljs-keyword,
+[data-theme="light"] .hljs-formula { color: #a626a4; }
+[data-theme="light"] .hljs-section,
+[data-theme="light"] .hljs-name,
+[data-theme="light"] .hljs-selector-tag,
+[data-theme="light"] .hljs-deletion,
+[data-theme="light"] .hljs-subst { color: #e45649; }
+[data-theme="light"] .hljs-literal { color: #0184bb; }
+[data-theme="light"] .hljs-string,
+[data-theme="light"] .hljs-regexp,
+[data-theme="light"] .hljs-addition,
+[data-theme="light"] .hljs-attribute,
+[data-theme="light"] .hljs-meta .hljs-string { color: #50a14f; }
+[data-theme="light"] .hljs-attr,
+[data-theme="light"] .hljs-variable,
+[data-theme="light"] .hljs-template-variable,
+[data-theme="light"] .hljs-type,
+[data-theme="light"] .hljs-selector-class,
+[data-theme="light"] .hljs-selector-attr,
+[data-theme="light"] .hljs-selector-pseudo,
+[data-theme="light"] .hljs-number { color: #986801; }
+[data-theme="light"] .hljs-symbol,
+[data-theme="light"] .hljs-bullet,
+[data-theme="light"] .hljs-link,
+[data-theme="light"] .hljs-meta,
+[data-theme="light"] .hljs-selector-id,
+[data-theme="light"] .hljs-title { color: #4078f2; }
+[data-theme="light"] .hljs-built_in,
+[data-theme="light"] .hljs-title.class_,
+[data-theme="light"] .hljs-class .hljs-title { color: #c18401; }
+[data-theme="light"] .hljs-emphasis { font-style: italic; }
+[data-theme="light"] .hljs-strong { font-weight: bold; }
+[data-theme="light"] .hljs-link { text-decoration: underline; }
+
+/* ============================================
+   Theme System — CSS Custom Properties
+   ============================================ */
+
+:root,
+[data-theme="dark"] {
+  --color-bg-primary: #0b1120;
+  --color-bg-secondary: rgba(30, 41, 59, 0.5);
+  --color-bg-card: rgba(30, 41, 59, 0.6);
+  --color-bg-glass: rgba(30, 41, 59, 0.8);
+  --color-bg-code: #1e293b;
+  --color-bg-header: rgba(11, 17, 32, 0.75);
+  --color-bg-header-scrolled: rgba(11, 17, 32, 0.92);
+  --color-bg-footer: rgba(15, 23, 42, 0.9);
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.1);
+  --color-border-accent: rgba(96, 165, 250, 0.3);
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-text-subtle: #64748b;
+  --color-text-dim: #475569;
+  --color-accent: #60a5fa;
+  --color-accent-light: #93c5fd;
+  --color-accent-gradient-start: #60a5fa;
+  --color-accent-gradient-end: #a78bfa;
+  --color-accent-gradient-alt: #f472b6;
+  --color-prose-text: #cbd5e1;
+  --color-prose-heading: #f1f5f9;
+  --color-prose-link: #60a5fa;
+  --color-prose-code: #93c5fd;
+  --color-prose-code-bg: rgba(255, 255, 255, 0.05);
+  --color-prose-blockquote: #94a3b8;
+  --color-prose-blockquote-border: #60a5fa;
+  --color-prose-blockquote-bg: rgba(255, 255, 255, 0.05);
+  --color-prose-pre-bg: #0f172a;
+  --color-prose-pre-border: rgba(255, 255, 255, 0.08);
+  --color-prose-hr: rgba(255, 255, 255, 0.08);
+  --bg-radial-glow-1: rgba(96, 165, 250, 0.08);
+  --bg-radial-glow-2: rgba(167, 139, 250, 0.06);
+  --bg-radial-glow-3: rgba(244, 114, 182, 0.04);
 }
 
-/* 自定义滚动条 */
+[data-theme="light"] {
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: rgba(255, 255, 255, 0.8);
+  --color-bg-card: rgba(255, 255, 255, 0.85);
+  --color-bg-glass: rgba(255, 255, 255, 0.9);
+  --color-bg-code: #f1f5f9;
+  --color-bg-header: rgba(248, 250, 252, 0.85);
+  --color-bg-header-scrolled: rgba(248, 250, 252, 0.95);
+  --color-bg-footer: rgba(241, 245, 249, 0.95);
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(0, 0, 0, 0.12);
+  --color-border-accent: rgba(59, 130, 246, 0.25);
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #1e293b;
+  --color-text-muted: #475569;
+  --color-text-subtle: #64748b;
+  --color-text-dim: #94a3b8;
+  --color-accent: #3b82f6;
+  --color-accent-light: #60a5fa;
+  --color-accent-gradient-start: #3b82f6;
+  --color-accent-gradient-end: #8b5cf6;
+  --color-accent-gradient-alt: #ec4899;
+  --color-prose-text: #334155;
+  --color-prose-heading: #0f172a;
+  --color-prose-link: #3b82f6;
+  --color-prose-code: #1d4ed8;
+  --color-prose-code-bg: rgba(59, 130, 246, 0.08);
+  --color-prose-blockquote: #64748b;
+  --color-prose-blockquote-border: #3b82f6;
+  --color-prose-blockquote-bg: rgba(59, 130, 246, 0.05);
+  --color-prose-pre-bg: #f1f5f9;
+  --color-prose-pre-border: rgba(0, 0, 0, 0.08);
+  --color-prose-hr: rgba(0, 0, 0, 0.08);
+  --bg-radial-glow-1: rgba(59, 130, 246, 0.05);
+  --bg-radial-glow-2: rgba(139, 92, 246, 0.04);
+  --bg-radial-glow-3: rgba(236, 72, 153, 0.03);
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+body {
+  font-family: 'LXGW WenKai', system-ui, -apple-system, sans-serif;
+  background: var(--color-bg-primary);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -20%, var(--bg-radial-glow-1), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, var(--bg-radial-glow-2), transparent),
+    radial-gradient(ellipse 50% 40% at 20% 70%, var(--bg-radial-glow-3), transparent);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--color-text-secondary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   Prose / Typography
+   ============================================ */
+
+/* 全局代码块样式增强 */
+.prose pre {
+  position: relative;
+  background: var(--color-prose-pre-bg) !important;
+  border: 1px solid var(--color-prose-pre-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  padding: 1.25rem 1rem !important;
+  overflow-x: auto !important;
+}
+
+.prose pre code {
+  background: none !important;
+  padding: 0 !important;
+  border: none !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'LXGW WenKai Mono', monospace !important;
+}
+
+/* 代码块顶部的语言标签 */
+.prose pre::before {
+  content: attr(class);
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+/* 行内代码 */
+.prose code:not(pre code) {
+  color: var(--color-prose-code) !important;
+  background: var(--color-prose-code-bg) !important;
+  border-radius: 6px !important;
+  padding: 0.2rem 0.5rem !important;
+  font-size: 0.85em !important;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+}
+
+/* 引用块 */
+.prose blockquote {
+  color: var(--color-prose-blockquote) !important;
+  border-left-color: var(--color-prose-blockquote-border) !important;
+  background: var(--color-prose-blockquote-bg) !important;
+  border-radius: 0 8px 8px 0 !important;
+  padding: 0.75rem 1.25rem !important;
+}
+
+/* 标题 */
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: var(--color-prose-heading) !important;
+}
+
+.prose h2 {
+  border-bottom: 1px solid var(--color-prose-hr) !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.prose p, .prose ul, .prose ol {
+  color: var(--color-prose-text) !important;
+}
+
+.prose a {
+  color: var(--color-prose-link) !important;
+}
+
+.prose hr {
+  border-color: var(--color-prose-hr) !important;
+}
+
+.prose img {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ============================================
+   Scrollbar
+   ============================================ */
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(15, 23, 42, 0.3);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -32,13 +253,11 @@ body {
   background: rgba(96, 165, 250, 0.5);
 }
 
-/* 选择文本样式 */
 ::selection {
   background: rgba(96, 165, 250, 0.3);
   color: #f8fafc;
 }
 
-/* 平滑滚动 */
 html {
   scroll-behavior: smooth;
 }
