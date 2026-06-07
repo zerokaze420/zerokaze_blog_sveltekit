@@ -5,50 +5,8 @@
 /* LXGW WenKai 字体 */
 @import '@fontsource/lxgw-wenkai/index.css';
 
-/* highlight.js — Code Syntax Theme */
-@import 'highlight.js/styles/atom-one-dark.css' layer(hljs-base);
-
-/* 亮色主题代码高亮覆盖 */
-[data-theme="light"] .hljs {
-  color: #383a42;
-  background: #fafafa;
-}
-[data-theme="light"] .hljs-comment,
-[data-theme="light"] .hljs-quote { color: #a0a1a7; font-style: italic; }
-[data-theme="light"] .hljs-doctag,
-[data-theme="light"] .hljs-keyword,
-[data-theme="light"] .hljs-formula { color: #a626a4; }
-[data-theme="light"] .hljs-section,
-[data-theme="light"] .hljs-name,
-[data-theme="light"] .hljs-selector-tag,
-[data-theme="light"] .hljs-deletion,
-[data-theme="light"] .hljs-subst { color: #e45649; }
-[data-theme="light"] .hljs-literal { color: #0184bb; }
-[data-theme="light"] .hljs-string,
-[data-theme="light"] .hljs-regexp,
-[data-theme="light"] .hljs-addition,
-[data-theme="light"] .hljs-attribute,
-[data-theme="light"] .hljs-meta .hljs-string { color: #50a14f; }
-[data-theme="light"] .hljs-attr,
-[data-theme="light"] .hljs-variable,
-[data-theme="light"] .hljs-template-variable,
-[data-theme="light"] .hljs-type,
-[data-theme="light"] .hljs-selector-class,
-[data-theme="light"] .hljs-selector-attr,
-[data-theme="light"] .hljs-selector-pseudo,
-[data-theme="light"] .hljs-number { color: #986801; }
-[data-theme="light"] .hljs-symbol,
-[data-theme="light"] .hljs-bullet,
-[data-theme="light"] .hljs-link,
-[data-theme="light"] .hljs-meta,
-[data-theme="light"] .hljs-selector-id,
-[data-theme="light"] .hljs-title { color: #4078f2; }
-[data-theme="light"] .hljs-built_in,
-[data-theme="light"] .hljs-title.class_,
-[data-theme="light"] .hljs-class .hljs-title { color: #c18401; }
-[data-theme="light"] .hljs-emphasis { font-style: italic; }
-[data-theme="light"] .hljs-strong { font-weight: bold; }
-[data-theme="light"] .hljs-link { text-decoration: underline; }
+/* 暗色代码主题（默认，亮色由 JS 注入切换） */
+@import 'highlight.js/styles/atom-one-dark.css';
 
 /* ============================================
    Theme System — CSS Custom Properties
