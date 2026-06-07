@@ -159,7 +159,7 @@ body {
   border: 1px solid var(--color-prose-pre-border) !important;
   border-radius: 12px !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
-  padding: 1.25rem 1rem !important;
+  padding: 2.25rem 0.75rem 0.75rem !important;
   overflow-x: auto !important;
 }
 
@@ -167,23 +167,82 @@ body {
   background: none !important;
   padding: 0 !important;
   border: none !important;
-  font-size: 0.875rem !important;
-  line-height: 1.6 !important;
+  font-size: 0.85rem !important;
+  line-height: 1.7 !important;
   font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'LXGW WenKai Mono', monospace !important;
+  tab-size: 2;
 }
 
-/* 代码块顶部的语言标签 */
-.prose pre::before {
-  content: attr(class);
+/* 行号 */
+.code-line-nums {
   position: absolute;
-  top: 0.5rem;
-  right: 0.75rem;
+  left: 0;
+  top: 2.25rem;
+  bottom: 0.75rem;
+  width: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-dim);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  font-family: 'JetBrains Mono', monospace;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  user-select: none;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.code-line-nums span {
+  display: block;
+  line-height: 1.7;
+}
+
+.code-line-nums + code {
+  padding-left: 0.5rem !important;
+}
+
+/* 语言标签 */
+.code-lang-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.3rem 0.8rem;
   font-size: 0.7rem;
+  font-weight: 600;
   color: var(--color-text-dim);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 500;
   opacity: 0.6;
+}
+
+/* 复制按钮 */
+.code-copy-btn {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: var(--color-text-dim);
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.prose pre:hover .code-copy-btn {
+  opacity: 1;
+}
+
+.code-copy-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--color-text-muted);
 }
 
 /* 行内代码 */
