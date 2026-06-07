@@ -1,6 +1,7 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import { onMount } from 'svelte';
+  import Icons from '$lib/components/Icons.svelte';
 
   interface PostEntry {
     slug: string;
@@ -17,7 +18,6 @@
 
   onMount(async () => {
     try {
-      // 使用 Vite 的 glob 导入扫描所有文章
       const modules = import.meta.glob('/src/lib/posts/*.md', { eager: true }) as Record<string, any>;
 
       const allPosts: PostEntry[] = Object.entries(modules).map(([path, module]) => {
@@ -34,7 +34,6 @@
         };
       });
 
-      // 按日期排序（最新的在前）
       allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       posts = allPosts;
     } catch (err) {
@@ -44,7 +43,6 @@
     }
   });
 
-  // 按年份分组
   let groupedByYear = $derived.by(() => {
     const groups: Record<string, PostEntry[]> = {};
     for (const post of posts) {
@@ -52,13 +50,12 @@
       if (!groups[year]) groups[year] = [];
       groups[year].push(post);
     }
-    // 年份降序
     return Object.entries(groups).sort(([a], [b]) => Number(b) - Number(a));
   });
 </script>
 
 <div class="timeline-container">
-  <h1 class="timeline-title">📅 博客时间线</h1>
+  <h1 class="timeline-title"><Icons name="timeline" size={28} /> 博客时间线</h1>
   <p class="timeline-subtitle">记录我的博客成长历程 · 共 {posts.length} 篇文章</p>
 
   {#if isLoading}
@@ -72,12 +69,10 @@
     </div>
   {:else}
     <div class="timeline">
-      <!-- 时间线中线 -->
       <div class="timeline-line"></div>
 
       {#each groupedByYear as [year, yearPosts], yearIndex}
-        <!-- 年份标记 -->
-        <div class="year-marker" class:year-even={yearIndex % 2 === 0}>
+        <div class="year-marker">
           <div class="year-badge">{year}</div>
         </div>
 
@@ -86,30 +81,29 @@
           <a
             href="{base}/blog/{post.slug}"
             class="timeline-item"
-            class:timeline-left={isLeft}
-            class:timeline-right={!isLeft}
+            class:tl-left={isLeft}
+            class:tl-right={!isLeft}
           >
             <div class="timeline-dot"></div>
             <div class="timeline-card">
-              <div class="card-date">
+              <div class="tl-date">
                 <span class="date-badge">
+                  <Icons name="calendar" size={12} />
                   {new Date(post.date).toLocaleDateString('zh-CN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+                    year: 'numeric', month: 'long', day: 'numeric'
                   })}
                 </span>
               </div>
-              <h2 class="card-title">{post.title}</h2>
-              <p class="card-description">{post.description}</p>
-              <div class="card-footer">
-                <span class="card-author">✍️ {post.author}</span>
-                <div class="card-tags">
+              <h2 class="tl-card-title">{post.title}</h2>
+              <p class="tl-desc">{post.description}</p>
+              <div class="tl-footer">
+                <span class="tl-author"><Icons name="user" size={13} /> {post.author}</span>
+                <div class="tl-tags">
                   {#each post.tags.slice(0, 3) as tag}
-                    <span class="tag">{tag}</span>
+                    <span class="tl-tag">{tag}</span>
                   {/each}
                   {#if post.tags.length > 3}
-                    <span class="tag tag-more">+{post.tags.length - 3}</span>
+                    <span class="tl-tag tl-tag-more">+{post.tags.length - 3}</span>
                   {/if}
                 </div>
               </div>
@@ -126,7 +120,7 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 2rem 1rem;
-    color: #e2e8f0;
+    color: var(--color-text-secondary);
   }
 
   .timeline-title {
@@ -134,15 +128,23 @@
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--color-text-primary);
+  }
+
+  .timeline-title :global(svg) {
+    background: linear-gradient(135deg, var(--color-accent-gradient-start), var(--color-accent-gradient-end));
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .timeline-subtitle {
     text-align: center;
-    color: #94a3b8;
+    color: var(--color-text-muted);
     margin-bottom: 3rem;
     font-size: 1.1rem;
   }
@@ -154,14 +156,14 @@
     align-items: center;
     justify-content: center;
     min-height: 300px;
-    color: #94a3b8;
+    color: var(--color-text-muted);
   }
 
   .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top-color: #60a5fa;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-accent);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin-bottom: 1rem;
@@ -182,7 +184,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, #60a5fa, #a78bfa, #f472b6);
+    background: linear-gradient(180deg, var(--color-accent-gradient-start), var(--color-accent-gradient-end), var(--color-accent-gradient-alt));
     transform: translateX(-50%);
     border-radius: 2px;
   }
@@ -197,12 +199,12 @@
   .year-badge {
     display: inline-block;
     padding: 0.4rem 1.5rem;
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(167, 139, 250, 0.3));
-    border: 1px solid rgba(96, 165, 250, 0.4);
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(167, 139, 250, 0.15));
+    border: 1px solid rgba(96, 165, 250, 0.3);
     border-radius: 999px;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #93c5fd;
+    color: var(--color-accent-light);
     backdrop-filter: blur(10px);
   }
 
@@ -215,12 +217,12 @@
     width: 100%;
   }
 
-  .timeline-left {
+  .tl-left {
     justify-content: flex-start;
     padding-right: calc(50% + 2rem);
   }
 
-  .timeline-right {
+  .tl-right {
     justify-content: flex-end;
     padding-left: calc(50% + 2rem);
   }
@@ -231,26 +233,26 @@
     top: 1.5rem;
     width: 16px;
     height: 16px;
-    background: #60a5fa;
-    border: 3px solid rgba(96, 165, 250, 0.3);
+    background: var(--color-accent);
+    border: 3px solid rgba(96, 165, 250, 0.2);
     border-radius: 50%;
     transform: translateX(-50%);
     z-index: 2;
     transition: all 0.3s ease;
-    box-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.3);
   }
 
   .timeline-item:hover .timeline-dot {
-    background: #f472b6;
-    border-color: rgba(244, 114, 182, 0.4);
-    box-shadow: 0 0 20px rgba(244, 114, 182, 0.6);
+    background: var(--color-accent-gradient-alt);
+    border-color: rgba(244, 114, 182, 0.3);
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.4);
     transform: translateX(-50%) scale(1.3);
   }
 
   .timeline-card {
-    background: rgba(30, 41, 59, 0.8);
+    background: var(--color-bg-card);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-border);
     border-radius: 16px;
     padding: 1.25rem;
     width: 100%;
@@ -264,63 +266,65 @@
     top: 1.2rem;
     width: 12px;
     height: 12px;
-    background: rgba(30, 41, 59, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-bg-glass);
+    border: 1px solid var(--color-border);
     transform: rotate(45deg);
   }
 
-  .timeline-left .timeline-card::before {
+  .tl-left .timeline-card::before {
     right: -7px;
     border-left: none;
     border-bottom: none;
   }
 
-  .timeline-right .timeline-card::before {
+  .tl-right .timeline-card::before {
     left: -7px;
     border-right: none;
     border-top: none;
   }
 
   .timeline-card:hover {
-    border-color: rgba(96, 165, 250, 0.4);
+    border-color: var(--color-border-accent);
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
   }
 
-  .card-date {
+  .tl-date {
     margin-bottom: 0.5rem;
   }
 
   .date-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     padding: 0.2rem 0.8rem;
-    background: rgba(96, 165, 250, 0.15);
+    background: rgba(96, 165, 250, 0.1);
     border-radius: 999px;
-    font-size: 0.85rem;
-    color: #93c5fd;
+    font-size: 0.82rem;
+    color: var(--color-accent-light);
   }
 
-  .card-title {
-    font-size: 1.2rem;
+  .tl-card-title {
+    font-size: 1.15rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #f1f5f9;
+    color: var(--color-text-primary);
     line-height: 1.4;
   }
 
-  .card-description {
-    font-size: 0.9rem;
-    color: #94a3b8;
+  .tl-desc {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
     margin-bottom: 0.75rem;
     line-height: 1.5;
+    overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     line-clamp: 2;
-    overflow: hidden;
   }
 
-  .card-footer {
+  .tl-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -328,40 +332,41 @@
     flex-wrap: wrap;
   }
 
-  .card-author {
+  .tl-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--color-text-subtle);
   }
 
-  .card-tags {
+  .tl-tags {
     display: flex;
     gap: 0.35rem;
     flex-wrap: wrap;
   }
 
-  .tag {
+  .tl-tag {
     padding: 0.15rem 0.5rem;
-    background: rgba(96, 165, 250, 0.12);
-    border: 1px solid rgba(96, 165, 250, 0.2);
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.15);
     border-radius: 999px;
     font-size: 0.7rem;
-    color: #93c5fd;
+    color: var(--color-accent-light);
   }
 
-  .tag-more {
-    background: rgba(148, 163, 184, 0.12);
-    border-color: rgba(148, 163, 184, 0.2);
-    color: #94a3b8;
+  .tl-tag-more {
+    background: rgba(148, 163, 184, 0.08);
+    border-color: rgba(148, 163, 184, 0.15);
+    color: var(--color-text-muted);
   }
 
-  /* 移动端适配：单栏布局 */
   @media (max-width: 768px) {
     .timeline-line {
       left: 1.5rem;
     }
 
-    .timeline-left,
-    .timeline-right {
+    .tl-left, .tl-right {
       padding-left: 3.5rem;
       padding-right: 0;
       justify-content: flex-start;
@@ -371,14 +376,14 @@
       left: 1.5rem;
     }
 
-    .timeline-left .timeline-card::before,
-    .timeline-right .timeline-card::before {
+    .tl-left .timeline-card::before,
+    .tl-right .timeline-card::before {
       left: -7px;
       right: auto;
       border-right: none;
       border-top: none;
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
     }
 
     .year-marker {

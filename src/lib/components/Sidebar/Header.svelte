@@ -2,6 +2,7 @@
   import { base } from '$app/paths';
   import { onMount } from 'svelte';
   import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+  import Icons from '$lib/components/Icons.svelte';
 
   let { class: className = '' } = $props();
 
@@ -56,6 +57,9 @@
     </nav>
 
     <div class="header-actions">
+      <a href={`${base}/search`} class="header-icon-btn" aria-label="搜索">
+        <Icons name="search" size={18} />
+      </a>
       <ThemeToggle />
 
     <!-- Hamburger -->
@@ -206,8 +210,26 @@
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.35rem;
     margin-left: 0.5rem;
+  }
+
+  .header-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0.4rem;
+    border-radius: 8px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .header-icon-btn:hover {
+    color: var(--color-accent);
+    background: rgba(96, 165, 250, 0.08);
   }
 
   .nav-mobile {

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from './$types';
   import { highlight } from '$lib/utils/highlight';
+  import Icons from '$lib/components/Icons.svelte';
 
   let { data } = $props<{ data: PageData }>();
 
@@ -19,17 +20,18 @@
 <article class="post-article">
   <header class="post-header">
     <div class="post-breadcrumb">
-      <a href="/blog" class="breadcrumb-link">← 返回所有文章</a>
+      <a href="/blog" class="breadcrumb-link"><Icons name="arrow-left" size={16} /> 返回所有文章</a>
     </div>
     <h1 class="post-title">{data.post.title}</h1>
     <div class="post-meta-bar">
       <time class="post-date">
-        📅 {new Date(data.post.date).toLocaleDateString('zh-CN', {
+        <Icons name="calendar" size={15} />
+        {new Date(data.post.date).toLocaleDateString('zh-CN', {
           year: 'numeric', month: 'long', day: 'numeric'
         })}
       </time>
       <span class="meta-sep">·</span>
-      <span class="post-author">✍️ {data.post.author}</span>
+      <span class="post-author"><Icons name="user" size={15} /> {data.post.author}</span>
       {#if data.post.tags?.length}
         <span class="meta-sep">·</span>
         <div class="post-tags">
@@ -57,7 +59,7 @@
   <footer class="post-footer">
     <hr class="footer-divider" />
     <div class="footer-nav">
-      <a href="/blog" class="footer-back">← 返回所有文章</a>
+      <a href="/blog" class="footer-back"><Icons name="arrow-left" size={16} /> 返回所有文章</a>
     </div>
   </footer>
 </article>

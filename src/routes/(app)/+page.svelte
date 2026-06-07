@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { base } from '$app/paths';
+  import Icons from '$lib/components/Icons.svelte';
 
   interface PostEntry {
     slug: string;
@@ -53,7 +54,7 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-badge">✨ 个人技术博客</div>
+    <div class="hero-badge"><Icons name="pen" size={14} /> 个人技术博客</div>
     <h1 class="hero-title">
       <span class="hero-greeting">Hi, I'm</span>
       <span class="hero-name">Zerokaze</span>
@@ -89,7 +90,7 @@
   <aside class="sidebar">
     <div class="card">
       <div class="card-header">
-        <span class="card-icon">🏷️</span>
+        <span class="card-icon"><Icons name="tag" size={18} /></span>
         <h2 class="card-h2">标签云</h2>
       </div>
       <div class="card-body">
@@ -107,8 +108,8 @@
 
   <section class="main-content">
     <div class="section-header">
-      <h2 class="section-title">📝 最新文章</h2>
-      <a href="{base}/blog" class="section-link">查看全部 →</a>
+      <h2 class="section-title"><Icons name="book" size={22} /> 最新文章</h2>
+      <a href="{base}/blog" class="section-link">查看全部 <Icons name="chevron-right" size={14} /></a>
     </div>
     <div class="post-list">
       {#each recentPosts as post, i}
@@ -123,7 +124,7 @@
           </div>
           <h3 class="post-title">{post.title}</h3>
           <p class="post-desc">{post.description}</p>
-          <span class="post-link">阅读全文 →</span>
+          <span class="post-link">阅读全文 <Icons name="arrow-right" size={14} /></span>
         </a>
       {/each}
     </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { base } from '$app/paths';
+    import Icons from '$lib/components/Icons.svelte';
 
     let { data } = $props<{ data: PageData }>();
 
@@ -19,7 +20,7 @@
 
 <div class="tags-page">
   <header class="page-header">
-    <h1 class="page-title">🏷️ 标签</h1>
+    <h1 class="page-title"><Icons name="tag" size={26} /> 标签</h1>
     <p class="page-desc">按主题分类浏览文章</p>
   </header>
 

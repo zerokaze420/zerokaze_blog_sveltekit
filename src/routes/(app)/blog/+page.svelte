@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { base } from '$app/paths';
+    import Icons from '$lib/components/Icons.svelte';
 
     let { data } = $props<{ data: PageData }>();
 </script>
@@ -12,7 +13,7 @@
 
 <div class="blog-page">
   <header class="page-header">
-    <h1 class="page-title">📝 所有文章</h1>
+    <h1 class="page-title"><Icons name="book" size={26} /> 所有文章</h1>
     <p class="page-desc">共 {data.posts.length} 篇文章</p>
   </header>
 
