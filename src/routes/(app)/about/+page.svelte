@@ -15,7 +15,6 @@
         <div class="avatar-placeholder">ZK</div>
       </div>
       <h1 class="about-name">Zerokaze</h1>
-      <p class="about-role">运维开发 & 系统测试</p>
       <div class="about-links">
         <a href="https://github.com/zerokaze420" target="_blank" rel="noopener" class="about-link">
           <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -36,31 +35,9 @@
       <section class="about-section">
         <h2 class="section-title">👋 关于我</h2>
         <p class="section-text">
-          一位充满热情的开发者，6年 Linux 日常使用经验，精通 Arch Linux、Gentoo、NixOS 等发行版下的开发、编程与测试脚本。
+          6年 Linux 日常使用经验，精通 Arch Linux、Gentoo、NixOS 等发行版下的开发、编程与测试。
           熟练编写 Shell 脚本、Python 脚本。熟悉 Vue、Next.js、Svelte 等前端框架基础，对 Linux 以及操作系统有强烈兴趣。
         </p>
-      </section>
-
-      <section class="about-section">
-        <h2 class="section-title">💼 经历</h2>
-        <div class="timeline-mini">
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-content">
-              <h3>RISC-V 系统测试实习生</h3>
-              <p class="tl-org">中科院软件所 · RevyOS 小队</p>
-              <p class="tl-period">2025.08 - 至今</p>
-            </div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-content">
-              <h3>运维+开发</h3>
-              <p class="tl-org">字节筑梦</p>
-              <p class="tl-period">2025.06 - 至今</p>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section class="about-section">
@@ -160,12 +137,6 @@
     margin-bottom: 0.3rem;
   }
 
-  .about-role {
-    color: #94a3b8;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-
   .about-links {
     display: flex;
     justify-content: center;
@@ -217,44 +188,6 @@
     font-size: 0.95rem;
   }
 
-  /* Mini timeline */
-  .timeline-mini {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .tl-item {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-  }
-
-  .tl-dot {
-    width: 10px;
-    height: 10px;
-    min-width: 10px;
-    border-radius: 50%;
-    background: #60a5fa;
-    margin-top: 6px;
-    box-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
-  }
-
-  .tl-content h3 {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #e2e8f0;
-  }
-
-  .tl-org {
-    font-size: 0.85rem;
-    color: #60a5fa;
-  }
-
-  .tl-period {
-    font-size: 0.8rem;
-    color: #64748b;
-  }
 
   /* Skills */
   .skill-grid {

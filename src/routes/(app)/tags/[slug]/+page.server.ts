@@ -5,47 +5,85 @@ import type { PageServerLoad } from './$types';
 import type { PostMetadata } from '$lib/types';
 
 /**
- * @type {import('./$types').PrerenderLoad}
+ * 预渲染入口：同时支持文章 slug 和标签名
  */
 export async function entries() {
-  const modules = import.meta.glob('../../../../lib/posts/*.md');
-  
-  const slugs = Object.keys(modules).map(path => {
-    // 使用可选链 ?. 和空值合并 ?? '' 来安全地处理可能为 undefined 的情况
-    // pop() 返回最后一个元素或 undefined
-    // 如果返回 undefined，则使用一个空字符串 '' 作为备用
-    const fileName = path.split('/').pop() ?? ''; 
-    return fileName.replace('.md', '');
-  });
-  
-  return slugs.map(slug => ({ slug }));
+  const modules = import.meta.glob('../../../../lib/posts/*.md', { eager: true }) as Record<string, any>;
+
+  const slugs = new Set<string>();
+
+  for (const [path, module] of Object.entries(modules)) {
+    const fileName = path.split('/').pop() ?? '';
+    const slug = fileName.replace('.md', '');
+
+    // 文章 slug
+    slugs.add(slug);
+
+    // 标签名也作为可能的 slug
+    const meta = (module as { metadata: Record<string, any> }).metadata;
+    if (meta.tags && Array.isArray(meta.tags)) {
+      for (const tag of meta.tags) {
+        slugs.add(tag);
+      }
+    }
+  }
+
+  return Array.from(slugs).map(slug => ({ slug }));
 }
 
-/**
- * 这会告诉 SvelteKit，此路由是可以预渲染的。
- * @type {boolean}
- */
 export const prerender = true;
 
 /**
- * 这是一个 SvelteKit 的“加载”函数，用于在运行时（run time）
- * 根据 URL 参数加载特定文章的数据。
- * @type {PageServerLoad}
+ * 加载函数：根据 slug 加载文章或按标签过滤文章列表
  */
 export const load: PageServerLoad = async ({ params }) => {
+  const slug = params.slug;
+
+  // 方案一：先尝试作为文章 slug 加载
   try {
-    const postModule = await import(`../../../../lib/posts/${params.slug}.md`);
+    const postModule = await import(`../../../../lib/posts/${slug}.md`);
     const metadata: PostMetadata = postModule.metadata;
 
-    const finalMetadata = {
-      ...metadata,
-      slug: params.slug 
-    };
-
     return {
-      metadata: finalMetadata
+      mode: 'post' as const,
+      metadata: {
+        ...metadata,
+        slug: params.slug
+      }
     };
-  } catch (e) {
-    throw error(404, '文章未找到');
+  } catch {
+    // 不是文章 slug，继续尝试作为标签名
   }
+
+  // 方案二：作为标签名，过滤出所有包含该标签的文章
+  const allModules = import.meta.glob('../../../../lib/posts/*.md', { eager: true }) as Record<string, any>;
+
+  const taggedPosts = Object.entries(allModules)
+    .map(([path, module]) => {
+      const meta = (module as { metadata: Record<string, any> }).metadata;
+      const postSlug = path.split('/').pop()?.slice(0, -3) ?? '';
+      return {
+        slug: postSlug,
+        metadata: meta as Record<string, any>
+      };
+    })
+    .filter((post): post is { slug: string; metadata: Record<string, any> } => {
+      const tags: string[] = post.metadata?.tags ?? [];
+      return tags.some(t => t.toLowerCase() === slug.toLowerCase());
+    })
+    .sort((a, b) => {
+      const dateA = a.metadata?.publishDate || a.metadata?.date || '';
+      const dateB = b.metadata?.publishDate || b.metadata?.date || '';
+      return new Date(dateB).getTime() - new Date(dateA).getTime();
+    });
+
+  if (taggedPosts.length === 0) {
+    throw error(404, '未找到相关文章或标签');
+  }
+
+  return {
+    mode: 'tag' as const,
+    tag: slug,
+    posts: taggedPosts
+  };
 };

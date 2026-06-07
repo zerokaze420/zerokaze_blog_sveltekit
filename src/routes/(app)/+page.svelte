@@ -62,7 +62,7 @@
       <span class="hero-name">Zerokaze</span>
     </h1>
     <p class="hero-desc">
-      运维开发 & 系统测试 · Linux 爱好者 · 开源贡献者
+      Linux 爱好者 · 开源贡献者 · 技术分享
     </p>
     <div class="hero-stats">
       <div class="hero-stat">
