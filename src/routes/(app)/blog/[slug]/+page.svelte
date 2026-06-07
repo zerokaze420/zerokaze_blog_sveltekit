@@ -41,7 +41,7 @@
     </div>
   </header>
 
-  <div class="post-content prose prose-lg" use:highlight>
+  <div class="post-content" use:highlight>
     {#key data.post.slug}
       {#await postContentPromise}
         <div class="state-box"><div class="spinner"></div><p>加载中...</p></div>
@@ -64,7 +64,7 @@
 
 <style>
   .post-article {
-    max-width: 800px;
+    max-width: 860px;
     margin: 0 auto;
     padding: 1rem 0 3rem;
   }
@@ -130,12 +130,7 @@
   }
 
   .post-content {
-    padding: 2rem 1.5rem;
-    background: var(--color-bg-card);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--color-border);
-    border-radius: 16px;
-    line-height: 1.8;
+    background: var(--color-bg-primary);
   }
 
   .state-box {

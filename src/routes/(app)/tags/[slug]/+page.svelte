@@ -68,7 +68,7 @@
       </div>
     </header>
 
-    <div class="post-content prose prose-lg" use:highlight>
+    <div class="post-content" use:highlight>
       {#key data.metadata.slug}
         {#await postContentPromise}
           <div class="state-box"><div class="spinner"></div><p>加载中...</p></div>
@@ -142,7 +142,7 @@
   }
 
   /* 文章模式 */
-  .post-article { max-width: 800px; margin: 0 auto; padding: 1rem 0 3rem; }
+  .post-article { max-width: 860px; margin: 0 auto; padding: 1rem 0 3rem; }
   .post-header { margin-bottom: 2.5rem; text-align: center; }
   .post-title { font-size: 2.2rem; font-weight: 800; color: var(--color-text-primary); line-height: 1.2; margin-bottom: 1rem; }
   .post-meta-bar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; color: var(--color-text-muted); font-size: 0.9rem; }
@@ -151,12 +151,7 @@
   .post-tag { color: var(--color-accent-light); text-decoration: none; font-size: 0.85rem; }
   .post-tag:hover { color: var(--color-accent); }
   .post-content {
-    padding: 2rem 1.5rem;
-    background: var(--color-bg-card);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--color-border);
-    border-radius: 16px;
-    line-height: 1.8;
+    background: var(--color-bg-primary);
   }
 
   .state-box { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; color: var(--color-text-muted); }
