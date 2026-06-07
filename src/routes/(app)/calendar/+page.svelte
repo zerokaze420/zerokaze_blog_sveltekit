@@ -1,9 +1,11 @@
 <script lang="ts">
-    import Calender from "$lib/components/Calendar/Calender.svelte";
+    import Timeline from "$lib/components/Timeline/Timeline.svelte";
 </script>
 
-<div >
- <Calender />
+<svelte:head>
+  <title>博客时间线</title>
+</svelte:head>
+
+<div class="min-h-screen py-8">
+  <Timeline />
 </div>
-
-

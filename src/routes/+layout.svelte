@@ -1,5 +1,13 @@
 <script>
-  import '../app.css'; // 從根佈局來看，這個相對路徑是正確的
+  import '../app.css';
+  import Footer from '$lib/components/Footer.svelte';
+
+  let { children } = $props();
 </script>
 
-<slot />
+<div class="flex min-h-screen flex-col">
+  <main class="flex-1">
+    {@render children()}
+  </main>
+  <Footer />
+</div>

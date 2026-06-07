@@ -8,14 +8,10 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
-<div class="w-full  min-h-screen">
-  <main class=" w-full p-8">
-       <Header class="w-full h-16 bg-white shadow-md" /> 
-
-    {@render children()}
-  </main>
+  <div class="w-full">
+    <Header />
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+      {@render children()}
+    </div>
   </div>
- </QueryClientProvider>
-
-  
-
+</QueryClientProvider>

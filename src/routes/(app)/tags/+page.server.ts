@@ -13,15 +13,19 @@ export const load: PageServerLoad = async () => {
 
         // 假设模组的型别是已知的 (包含 metadata)
         const typedModule = module as { metadata: Record<string, any> };
+        const meta = typedModule.metadata;
 
         return {
             slug: slug,
-            metadata: typedModule.metadata
+            metadata: {
+                ...meta,
+                date: meta.publishDate || meta.date
+            }
         };
     });
 
-    // 3. (推荐) 按日期对文章进行排序，最新的在前面
-    posts.sort((a, b) => 
+    // 3. 按 publishDate 排序，最新的在前面
+    posts.sort((a, b) =>
         new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
     );
 

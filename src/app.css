@@ -2,4 +2,43 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+/* 全局暗色主题背景 */
+body {
+  background: #0b1120;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(96, 165, 250, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(167, 139, 250, 0.06), transparent),
+    radial-gradient(ellipse 50% 40% at 20% 70%, rgba(244, 114, 182, 0.04), transparent);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: #e2e8f0;
+}
 
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(96, 165, 250, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.5);
+}
+
+/* 选择文本样式 */
+::selection {
+  background: rgba(96, 165, 250, 0.3);
+  color: #f8fafc;
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
