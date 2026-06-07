@@ -3,6 +3,19 @@
     import { base } from '$app/paths';
 
     let { data } = $props<{ data: PageData }>();
+
+    interface PostMeta {
+      slug: string;
+      metadata: {
+        title: string;
+        date: string;
+        description: string;
+        tags: string[];
+        author: string;
+      };
+    }
+
+    const posts = data.posts as PostMeta[];
 </script>
 
 <svelte:head>
@@ -18,8 +31,8 @@
 
   <!-- 标签索引 -->
   <div class="tag-index">
-    {#each [...new Set(data.posts.flatMap(p => p.metadata.tags))].sort() as tag}
-      {@const count = data.posts.filter(p => p.metadata.tags?.includes(tag)).length}
+    {#each [...new Set(posts.flatMap((p: PostMeta) => p.metadata.tags))].sort() as tag}
+      {@const count = posts.filter((p: PostMeta) => p.metadata.tags?.includes(tag)).length}
       <a href="{base}/tags/{tag}" class="tag-pill">
         {tag}
         <span class="tag-count">{count}</span>
@@ -29,7 +42,7 @@
 
   <!-- 文章网格 -->
   <div class="posts-grid">
-    {#each data.posts as post}
+    {#each posts as post}
       <a
         href="{base}/blog/{post.slug}"
         class="post-card"
@@ -179,6 +192,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    line-clamp: 3;
     overflow: hidden;
     margin-bottom: 1rem;
   }

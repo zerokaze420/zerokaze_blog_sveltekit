@@ -68,7 +68,7 @@
 	}
 </script>
 
-<div class="calendar-container" on:mousemove={handleMouseMove}>
+<div class="calendar-container" role="region" aria-label="日历" on:mousemove={handleMouseMove}>
 	<h1>{title}</h1>
 
 	<div class="calendar-grid">
@@ -81,6 +81,8 @@
 				class="calendar-day"
 				class:empty={!cell.day}
 				class:has-event={cell.event}
+				role="button"
+				tabindex="-1"
 				on:mouseenter={() => showImage(cell.event)}
 				on:mouseleave={hideImage}
 			>
