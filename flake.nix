@@ -36,7 +36,6 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             bun
-            bun2nix # <--- 添加了 bun2nix
           ]; # 在开发环境中提供bun和bun2nix
         };
       });
