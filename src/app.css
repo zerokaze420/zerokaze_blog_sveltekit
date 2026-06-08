@@ -94,7 +94,7 @@ body {
   font-size: 1.05rem;
   line-height: 1.85;
   color: var(--color-text-secondary);
-  padding: 2.5rem 2rem;
+  padding: clamp(2rem, 4vw, 3.25rem) clamp(1.25rem, 4vw, 3rem);
   background: var(--color-bg-primary);
   border: 1px solid var(--color-border);
   border-radius: 16px;
@@ -385,6 +385,33 @@ body {
 .post-content input[type="checkbox"] {
   margin-right: 0.5em;
   accent-color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+  .post-content {
+    font-size: 1rem;
+    line-height: 1.78;
+    padding: 1.35rem 1rem;
+    border-radius: 12px;
+  }
+
+  .post-content h1 {
+    font-size: 1.65rem;
+  }
+
+  .post-content h2 {
+    font-size: 1.35rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.18rem;
+  }
+
+  .post-content pre {
+    margin-right: -0.25rem;
+    margin-left: -0.25rem;
+    border-radius: 10px;
+  }
 }
 
 /* ============================================

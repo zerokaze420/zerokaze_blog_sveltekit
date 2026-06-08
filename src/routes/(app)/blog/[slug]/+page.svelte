@@ -178,33 +178,37 @@
 <style>
   .post-shell {
     display: grid;
-    grid-template-columns: minmax(0, 860px) 220px;
-    gap: 2rem;
+    grid-template-columns: minmax(0, 920px) 240px;
+    gap: clamp(2.5rem, 4vw, 4rem);
     align-items: start;
-    max-width: 1130px;
+    max-width: 1240px;
     margin: 0 auto;
+    padding: clamp(1.5rem, 3vw, 3rem) clamp(1.25rem, 4vw, 3rem) 0;
   }
 
   .post-article {
     width: 100%;
     min-width: 0;
-    padding: 1rem 0 3rem;
+    padding: 0 0 3rem;
   }
 
   .post-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: clamp(3rem, 5vw, 4.5rem);
     text-align: center;
   }
 
   .post-breadcrumb {
     text-align: left;
-    margin-bottom: 1rem;
+    margin-bottom: 1.8rem;
   }
 
   .breadcrumb-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     color: var(--color-accent);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: color 0.2s;
   }
 
@@ -213,21 +217,29 @@
   }
 
   .post-title {
-    font-size: 2.2rem;
+    max-width: 980px;
+    margin: 0 auto 1.4rem;
+    font-size: clamp(2rem, 3.6vw, 3.1rem);
     font-weight: 800;
     color: var(--color-text-primary);
-    line-height: 1.2;
-    margin-bottom: 1rem;
+    line-height: 1.16;
   }
 
   .post-meta-bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.55rem 0.8rem;
     flex-wrap: wrap;
     color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: 0.96rem;
+  }
+
+  .post-date,
+  .post-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   .meta-sep {
@@ -257,10 +269,10 @@
 
   .post-toc {
     position: sticky;
-    top: 6rem;
-    max-height: calc(100vh - 7rem);
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
     overflow-y: auto;
-    padding: 1rem 0 1rem 1rem;
+    padding: 1.6rem 0 1.6rem 1.5rem;
     border-left: 1px solid var(--color-border);
   }
 
@@ -274,15 +286,15 @@
   .post-toc nav {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.2rem;
   }
 
   .post-toc a {
     display: block;
-    padding: 0.25rem 0;
+    padding: 0.28rem 0;
     color: var(--color-text-muted);
-    font-size: 0.82rem;
-    line-height: 1.45;
+    font-size: 0.86rem;
+    line-height: 1.5;
     text-decoration: none;
     transition: color 0.2s ease;
   }
@@ -298,7 +310,7 @@
 
   .post-toc a.toc-level-3 {
     padding-left: 0.9rem;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
   }
 
   .state-box {
@@ -358,10 +370,11 @@
     background: rgba(96, 165, 250, 0.2);
   }
 
-  @media (max-width: 1120px) {
+  @media (max-width: 1180px) {
     .post-shell {
       display: block;
       max-width: 860px;
+      padding-inline: clamp(1rem, 5vw, 2.5rem);
     }
 
     .post-toc {
@@ -370,6 +383,28 @@
   }
 
   @media (max-width: 640px) {
-    .post-title { font-size: 1.6rem; }
+    .post-shell {
+      padding-top: 1.2rem;
+      padding-inline: 1rem;
+    }
+
+    .post-header {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .post-breadcrumb {
+      margin-bottom: 1.3rem;
+    }
+
+    .post-title {
+      font-size: 1.75rem;
+      margin-inline: 0;
+    }
+
+    .post-meta-bar {
+      justify-content: flex-start;
+      font-size: 0.9rem;
+    }
   }
 </style>
