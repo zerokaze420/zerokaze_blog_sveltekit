@@ -1,7 +1,60 @@
 import hljs from 'highlight.js';
 
+let mermaidId = 0;
+
+function isMermaidBlock(block: HTMLElement) {
+  return block.classList.contains('language-mermaid');
+}
+
+async function renderMermaidBlocks(node: HTMLElement) {
+  const blocks = Array.from(node.querySelectorAll('pre code.language-mermaid')) as HTMLElement[];
+  if (blocks.length === 0) return;
+
+  const mermaid = (await import('mermaid')).default;
+  const styles = getComputedStyle(document.documentElement);
+  const isLight = document.documentElement.dataset.theme === 'light';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    securityLevel: 'strict',
+    theme: 'base',
+    themeVariables: {
+      background: styles.getPropertyValue('--color-bg-primary').trim(),
+      primaryColor: isLight ? '#eff6ff' : '#1e293b',
+      primaryTextColor: styles.getPropertyValue('--color-text-primary').trim(),
+      primaryBorderColor: styles.getPropertyValue('--color-border-accent').trim(),
+      lineColor: styles.getPropertyValue('--color-text-muted').trim(),
+      secondaryColor: isLight ? '#f8fafc' : '#0f172a',
+      tertiaryColor: isLight ? '#ffffff' : '#111827',
+      fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+    }
+  });
+
+  await Promise.all(blocks.map(async (block) => {
+    const pre = block.parentElement;
+    if (!pre || pre.dataset.mermaidRendered === 'true') return;
+
+    const source = block.textContent ?? '';
+    const container = document.createElement('div');
+    container.className = 'mermaid-chart';
+    container.dataset.mermaidSource = source;
+
+    try {
+      const { svg } = await mermaid.render(`mermaid-${Date.now()}-${mermaidId++}`, source);
+      container.innerHTML = svg;
+    } catch (error) {
+      container.classList.add('mermaid-chart-error');
+      container.textContent = error instanceof Error ? error.message : 'Mermaid 图表渲染失败';
+    }
+
+    pre.dataset.mermaidRendered = 'true';
+    pre.replaceWith(container);
+  }));
+}
+
 /** 高亮单个代码块 */
 function highlightBlock(block: HTMLElement) {
+  if (isMermaidBlock(block)) return;
   if (block.classList.contains('hljs')) return;
 
   hljs.highlightElement(block);
@@ -56,11 +109,14 @@ function highlightBlock(block: HTMLElement) {
  * 使用 MutationObserver 监听动态添加的内容
  */
 export function highlight(node: HTMLElement) {
+  renderMermaidBlocks(node);
+
   // 高亮已有代码块
   node.querySelectorAll('pre code').forEach((b) => highlightBlock(b as HTMLElement));
 
   // 监听动态添加的代码块
   const observer = new MutationObserver(() => {
+    renderMermaidBlocks(node);
     node.querySelectorAll('pre code:not(.hljs)').forEach((b) => highlightBlock(b as HTMLElement));
   });
 

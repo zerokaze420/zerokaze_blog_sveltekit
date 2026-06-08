@@ -32,6 +32,7 @@
 		"highlight-ts": "^9.12.1-2",
 		"highlight.js": "^11.11.1",
 		"mdsvex": "^0.12.6",
+		"mermaid": "^11.15.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^4.0.0",
