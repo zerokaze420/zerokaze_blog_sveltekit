@@ -18,15 +18,15 @@ Nix 远程构建要解决的问题不是“把命令放到另一台机器上执�
 
 ```mermaid
 flowchart TD
-  lock["flake.lock + bun.lock"] --> modules[".#frontendNodeModules"]
-  source["src/ + backend/ + package.yml + assets/icon.png"] --> frontend[".#frontend"]
+  lock["lock files"] --> modules["frontend modules"]
+  source["project source"] --> frontend["frontend build"]
   modules --> frontend
-  frontend --> app[".#default app"]
+  frontend --> app["application package"]
   source --> app
-  app --> image[".#dockerImage\nDocker archive"]
-  image --> lpk[".#lpk\nLPK package"]
+  app --> image["docker image archive"]
+  image --> lpk["LPK package"]
   source --> lpk
-  lpk --> result["result/*.lpk"]
+  lpk --> result["result link"]
 ```
 
 这条链路的关键点是每一层都变成了 Nix derivation。只要输入不变，输出 store path 就稳定；如果依赖、源码或构建脚本变化，Nix 会生成新的 store path，而不是复用工作区里的历史产物。
@@ -44,18 +44,18 @@ Nix 有两类常见远程构建方式：
 
 ```mermaid
 sequenceDiagram
-  participant User as 本机用户
-  participant Nix as 本机 Nix daemon
-  participant Builder as 远程 builder
-  participant Store as 本机 /nix/store
+  participant User as Local user
+  participant Nix as Local Nix daemon
+  participant Builder as Remote builder
+  participant Store as Local Nix store
 
-  User->>Nix: nix build .#lpk --max-jobs 0
-  Nix->>Nix: 读取 flake.lock，求值 derivation graph
-  Nix->>Builder: 复制必要输入与依赖闭包
-  Builder->>Builder: 构建 .#frontendNodeModules / .#frontend / .#dockerImage / .#lpk
-  Builder->>Nix: 返回输出 store path
-  Nix->>Store: 复制构建结果闭包
-  Nix->>User: 更新 result -> /nix/store/...
+  User->>Nix: Run nix build
+  Nix->>Nix: Evaluate derivation graph
+  Nix->>Builder: Copy inputs and dependency closure
+  Builder->>Builder: Build package targets
+  Builder->>Nix: Return output store paths
+  Nix->>Store: Copy output closure
+  Nix->>User: Update result link
 ```
 
 `--max-jobs 0` 是这里的核心开关。它表示本机不执行 build job；如果没有可用 builder，构建会失败，而不是悄悄退回本机构建。这对验证远程构建配置很有用。
@@ -66,10 +66,10 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  A["frontendNodeModules\n固定 node_modules"] --> B["frontend\nVite build"]
-  B --> C["app\n后端 + 静态资源 + 启动脚本"]
-  C --> D["dockerImage\nNix dockerTools"]
-  D --> E["lpk\n直接组包"]
+  A["fixed node modules"] --> B["Vite frontend"]
+  B --> C["application directory"]
+  C --> D["Nix docker image"]
+  D --> E["direct LPK pack"]
 ```
 
 ### frontendNodeModules
@@ -133,13 +133,13 @@ installPhase = ''
 
 ```mermaid
 flowchart TD
-  python["python313.withPackages\nFastAPI / uvicorn / httpx"] --> app["app derivation"]
-  frontend[".#frontend"] --> app
-  cli["frontendNodeModules\nlzc-cli runtime"] --> app
-  app --> docker["dockerTools.buildLayeredImage"]
-  docker --> archive["Docker archive store path"]
-  archive --> convert["docker_archive_to_lpk.py"]
-  convert --> package["cloud.lazycat.app.lazyport-web-v*-nix.lpk"]
+  python["Python runtime"] --> app["app derivation"]
+  frontend["frontend output"] --> app
+  cli["CLI runtime"] --> app
+  app --> docker["layered image"]
+  docker --> archive["image archive"]
+  archive --> convert["LPK converter"]
+  convert --> package["LPK artifact"]
 ```
 
 这条路径不依赖本地 Docker daemon，也不依赖 `lzc-cli project build`。Docker image 是 Nix 产物，LPK 也是 Nix 产物。
@@ -192,11 +192,11 @@ sudo systemctl restart nix-daemon
 
 ```mermaid
 flowchart TD
-  user["普通用户\nnix build"] --> daemon["本机 nix-daemon\nroot"]
-  daemon --> ssh["读取 /etc/nix/machines\n使用 ssh-key"]
-  ssh --> remote["tux@debian"]
-  remote --> rdaemon["远程 nix-daemon"]
-  rdaemon --> build["执行 build job"]
+  user["local user"] --> daemon["local nix daemon"]
+  daemon --> ssh["machine config and SSH key"]
+  ssh --> remote["remote login user"]
+  remote --> rdaemon["remote nix daemon"]
+  rdaemon --> build["build job"]
 ```
 
 建议分别测试：
@@ -257,14 +257,18 @@ nix develop -c env REMOTE_BUILDER='ssh://tux@debian x86_64-linux /home/tux/.ssh/
 ```mermaid
 stateDiagram-v2
   [*] --> PureNix
-  PureNix: nix build .#lpk
-  PureNix --> Result: result/*.lpk
+  PureNix: pure Nix LPK build
+  PureNix --> Result
+  Result: LPK artifact
 
   [*] --> Verify
-  Verify: nix build .#dockerImage
-  Verify --> DockerLoad: docker load -i result
-  DockerLoad --> LzcCli: lzc-cli project build
-  LzcCli --> VerifyResult: build/*-nix-verify.lpk
+  Verify: compatibility build
+  Verify --> DockerLoad
+  DockerLoad: load image archive
+  DockerLoad --> LzcCli
+  LzcCli: lzc-cli project build
+  LzcCli --> VerifyResult
+  VerifyResult: verified LPK
 ```
 
 两条路径的差异：
@@ -280,15 +284,15 @@ stateDiagram-v2
 
 ```mermaid
 flowchart TD
-  fail["构建失败"] --> ssh{"sudo ssh builder true 是否成功？"}
-  ssh -- 否 --> rootssh["修 root SSH 配置或私钥权限"]
-  ssh -- 是 --> ping{"nix store ping 是否成功？"}
-  ping -- 否 --> trust["检查远程 trusted-users / nix-daemon"]
-  ping -- 是 --> jobs{"是否配置 builder 且 --max-jobs 0？"}
-  jobs -- 否 --> local["可能退回本机构建"]
-  jobs -- 是 --> hash{"是否 outputHash mismatch？"}
-  hash -- 是 --> lock["更新锁文件或 outputHash"]
-  hash -- 否 --> feature["检查 system / supported-features / system-features"]
+  fail["build failed"] --> ssh{"root SSH works"}
+  ssh --> rootssh["fix root SSH config"]
+  ssh --> ping{"store ping works"}
+  ping --> trust["check trusted users"]
+  ping --> jobs{"remote jobs enabled"}
+  jobs --> local["may run locally"]
+  jobs --> hash{"hash mismatch"}
+  hash --> lock["update lock or hash"]
+  hash --> feature["check system features"]
 ```
 
 ### `experimental Nix feature 'flakes' is disabled`
@@ -333,11 +337,11 @@ Nix 远程构建的重点不是省掉一条 SSH 命令，而是把构建从“�
 
 ```mermaid
 flowchart LR
-  local["本机环境\nPATH / node_modules / Docker cache"] -.不可信.-> old["手工构建"]
-  flake["flake.nix\n显式依赖"] --> graph["derivation graph"]
-  graph --> builder["远程 builder"]
-  builder --> store["/nix/store 输出闭包"]
-  store --> result["result 链接"]
+  local["local mutable state"] --> old["manual build"]
+  flake["flake inputs"] --> drvGraph["derivation graph"]
+  drvGraph --> builder["remote builder"]
+  builder --> store["store closure"]
+  store --> result["result link"]
 ```
 
 当 `flake.nix` 把依赖、构建步骤和输出边界都描述清楚后，远程 builder 只需要提供算力和 Nix daemon。构建结果通过 store path 回到本机，`result` 指向的是一份可追踪的 Nix 产物，而不是某个目录里偶然生成的文件。

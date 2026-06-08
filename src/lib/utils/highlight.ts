@@ -6,6 +6,21 @@ function isMermaidBlock(block: HTMLElement) {
   return block.classList.contains('language-mermaid');
 }
 
+function removeMermaidErrorSvgs() {
+  document.querySelectorAll('svg').forEach((svg) => {
+    const text = svg.textContent ?? '';
+    if (!text.includes('Syntax error in text') || !text.includes('mermaid version')) return;
+
+    const wrapper = svg.parentElement;
+    if (wrapper && wrapper.children.length === 1 && wrapper.tagName.toLowerCase() === 'div') {
+      wrapper.remove();
+      return;
+    }
+
+    svg.remove();
+  });
+}
+
 async function renderMermaidBlocks(node: HTMLElement) {
   const blocks = Array.from(node.querySelectorAll('pre code.language-mermaid')) as HTMLElement[];
   if (blocks.length === 0) return;
@@ -16,6 +31,7 @@ async function renderMermaidBlocks(node: HTMLElement) {
 
   mermaid.initialize({
     startOnLoad: false,
+    suppressErrorRendering: true,
     securityLevel: 'strict',
     theme: 'base',
     themeVariables: {
@@ -32,7 +48,7 @@ async function renderMermaidBlocks(node: HTMLElement) {
 
   await Promise.all(blocks.map(async (block) => {
     const pre = block.parentElement;
-    if (!pre || pre.dataset.mermaidRendered === 'true') return;
+    if (!pre || pre.dataset.mermaidRendered) return;
 
     const source = block.textContent ?? '';
     const container = document.createElement('div');
@@ -42,13 +58,14 @@ async function renderMermaidBlocks(node: HTMLElement) {
     try {
       const { svg } = await mermaid.render(`mermaid-${Date.now()}-${mermaidId++}`, source);
       container.innerHTML = svg;
+      pre.dataset.mermaidRendered = 'true';
+      pre.replaceWith(container);
     } catch (error) {
-      container.classList.add('mermaid-chart-error');
-      container.textContent = error instanceof Error ? error.message : 'Mermaid 图表渲染失败';
+      console.error('Mermaid render failed:', error, source);
+      removeMermaidErrorSvgs();
+      pre.dataset.mermaidRendered = 'failed';
+      pre.classList.add('mermaid-source-fallback');
     }
-
-    pre.dataset.mermaidRendered = 'true';
-    pre.replaceWith(container);
   }));
 }
 
