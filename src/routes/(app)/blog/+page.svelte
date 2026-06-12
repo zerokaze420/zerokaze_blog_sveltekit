@@ -33,7 +33,7 @@
               <span class="tag">{tag}</span>
             {/each}
           </div>
-          <span class="card-author">👤 {post.metadata.author}</span>
+          <span class="card-author">{post.metadata.author}</span>
         </div>
       </a>
     {/each}
@@ -42,8 +42,8 @@
 
 <style>
   .blog-page { max-width: 1200px; margin: 0 auto; padding: 1rem 0; }
-  .page-header { text-align: center; margin-bottom: 2.5rem; }
-  .page-title { font-size: 2rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+  .page-header { margin-bottom: 2rem; }
+  .page-title { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 2rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.5rem; }
   .page-desc { color: var(--color-text-muted); font-size: 1rem; }
 
   .posts-grid {
@@ -54,18 +54,16 @@
 
   .post-card {
     display: flex; flex-direction: column; padding: 1.25rem;
-    background: var(--color-bg-secondary);
-    backdrop-filter: blur(12px);
+    background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: 14px;
+    border-radius: 8px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow-card);
+    transition: all 0.2s ease;
   }
   .post-card:hover {
-    border-color: var(--color-border-accent);
-    transform: translateY(-3px);
-    background: var(--color-bg-glass);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    border-color: var(--color-border-hover);
+    background: var(--color-bg-secondary);
   }
   .card-header { margin-bottom: 0.75rem; }
   .card-date { font-size: 0.82rem; color: var(--color-text-subtle); }
@@ -79,11 +77,11 @@
   .card-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
   .tag {
     padding: 0.15rem 0.5rem;
-    background: rgba(96, 165, 250, 0.1);
-    border: 1px solid rgba(96, 165, 250, 0.15);
-    border-radius: 999px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
     font-size: 0.72rem;
-    color: var(--color-accent-light);
+    color: var(--color-text-muted);
   }
   .card-author { font-size: 0.78rem; color: var(--color-text-subtle); white-space: nowrap; }
 </style>

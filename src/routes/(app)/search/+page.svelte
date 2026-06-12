@@ -131,14 +131,14 @@
     padding: 0.6rem 1rem;
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: 8px;
     transition: border-color 0.2s;
     color: var(--color-text-muted);
   }
 
   .search-box:focus-within {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+    border-color: var(--color-ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring) 25%, transparent);
   }
 
   .search-input {
@@ -183,16 +183,17 @@
   .result-card {
     display: block;
     padding: 1.25rem;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
     text-decoration: none;
     transition: all 0.2s;
   }
 
   .result-card:hover {
-    border-color: var(--color-border-accent);
-    background: var(--color-bg-card);
+    border-color: var(--color-border-hover);
+    background: var(--color-bg-secondary);
   }
 
   .result-meta {
@@ -238,11 +239,11 @@
 
   .result-tag {
     padding: 0.1rem 0.5rem;
-    background: rgba(96, 165, 250, 0.08);
-    border: 1px solid rgba(96, 165, 250, 0.12);
-    border-radius: 999px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
     font-size: 0.7rem;
-    color: var(--color-accent-light);
+    color: var(--color-text-muted);
   }
 
   .search-empty {

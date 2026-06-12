@@ -1,14 +1,14 @@
 ---
-title: "我的 NixOS 配置：从 Flake 到桌面和服务器"
+title: "NixOS 配置：从 Flake 到桌面和服务器"
 publishDate: "2026-06-11"
 author: "Zerokaze"
-description: "讲解我在 /home/tux/code/nixos 中维护的 NixOS Flake 配置：主机分层、共享模块、Home Manager、桌面环境和日常维护方式。"
+description: "讲解 /home/tux/code/nixos 中维护的 NixOS Flake 配置：主机分层、共享模块、Home Manager、桌面环境和日常维护方式。"
 tags: [NixOS, Nix, Linux, 配置]
 ---
 
-# 我的 NixOS 配置：从 Flake 到桌面和服务器
+# NixOS 配置：从 Flake 到桌面和服务器
 
-我的 NixOS 配置放在 `/home/tux/code/nixos`。这个仓库不是单台机器的 `configuration.nix`，而是一个 Flake 仓库，用同一套入口管理桌面机、笔记本和服务器。
+NixOS 配置放在 `/home/tux/code/nixos`。这个仓库不是单台机器的 `configuration.nix`，而是一个 Flake 仓库，用同一套入口管理桌面机、笔记本和服务器。
 
 它的目标很直接：硬件差异留在 `hosts/`，可复用能力沉到 `Modules/` 和 `homeModules/`，所有主机都从 `flake.nix` 生成。这样改桌面环境、Shell、输入法、虚拟化、Docker 之类的配置时，不需要在多台机器之间复制粘贴。
 
@@ -44,7 +44,7 @@ tags: [NixOS, Nix, Linux, 配置]
 | 系统配置 | `hosts/`、`Modules/` | 管理 NixOS 层面的服务、硬件、用户、桌面能力 |
 | 用户配置 | `home.nix`、`homeModules/`、`config/` | 管理 Home Manager、终端、编辑器、桌面配置文件 |
 
-我比较喜欢这种拆法，因为它把“机器是什么”和“能力是什么”分开了。`desktop`、`laptop`、`server` 是机器；`pipewire`、`docker`、`virt`、`fish`、`plasma` 是能力。机器只选择自己需要的能力。
+这种拆法把“机器是什么”和“能力是什么”分开了。`desktop`、`laptop`、`server` 是机器；`pipewire`、`docker`、`virt`、`fish`、`plasma` 是能力。机器只选择自己需要的能力。
 
 ## Flake 入口
 
@@ -271,4 +271,4 @@ nh os switch
 
 这样做之后，NixOS 配置就不是一份越来越长的 `configuration.nix`，而是一个可以扩展的系统描述。桌面机可以激进一点，启用 Hyprland、Niri、Plasma、Docker、libvirt；服务器可以保持简单，只保留 SSH 和基础工具。两者仍然共享同一个 Flake 入口和同一套维护方式。
 
-对个人机器来说，这已经足够实用：能复现，能迁移，能分层，也不会为了抽象而抽象。
+对日常使用的机器来说，这已经足够实用：能复现，能迁移，能分层，也不会为了抽象而抽象。

@@ -193,8 +193,7 @@
   }
 
   .post-header {
-    margin-bottom: clamp(3rem, 5vw, 4.5rem);
-    text-align: center;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
   }
 
   .post-breadcrumb {
@@ -206,20 +205,20 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    color: var(--color-accent);
+    color: var(--color-text-muted);
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.2s;
   }
 
   .breadcrumb-link:hover {
-    color: var(--color-accent-light);
+    color: var(--color-text-primary);
   }
 
   .post-title {
     max-width: 980px;
-    margin: 0 auto 1.4rem;
-    font-size: clamp(2rem, 3.6vw, 3.1rem);
+    margin: 0 0 1.2rem;
+    font-size: clamp(2rem, 3.6vw, 3rem);
     font-weight: 800;
     color: var(--color-text-primary);
     line-height: 1.16;
@@ -228,7 +227,7 @@
   .post-meta-bar {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0.55rem 0.8rem;
     flex-wrap: wrap;
     color: var(--color-text-muted);
@@ -253,18 +252,18 @@
   }
 
   .post-tag {
-    color: var(--color-accent-light);
+    color: var(--color-text-muted);
     text-decoration: none;
     font-size: 0.85rem;
     transition: color 0.2s;
   }
 
   .post-tag:hover {
-    color: var(--color-accent);
+    color: var(--color-text-primary);
   }
 
   .post-content {
-    background: var(--color-bg-primary);
+    background: var(--color-bg-card);
   }
 
   .post-toc {
@@ -301,7 +300,7 @@
 
   .post-toc a:hover,
   .post-toc a.active {
-    color: var(--color-accent-light);
+    color: var(--color-text-primary);
   }
 
   .post-toc a.active {
@@ -357,17 +356,17 @@
   .footer-back {
     display: inline-block;
     padding: 0.6rem 1.5rem;
-    background: rgba(96, 165, 250, 0.1);
-    border: 1px solid rgba(96, 165, 250, 0.2);
-    border-radius: 10px;
-    color: var(--color-accent-light);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-primary);
     text-decoration: none;
     font-size: 0.9rem;
     transition: all 0.2s;
   }
 
   .footer-back:hover {
-    background: rgba(96, 165, 250, 0.2);
+    background: var(--color-bg-secondary);
   }
 
   @media (max-width: 1180px) {

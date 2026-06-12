@@ -75,18 +75,14 @@
   }
 
   .theme-toggle:hover {
-    color: var(--color-accent);
-    border-color: var(--color-border-accent);
-    background: rgba(96, 165, 250, 0.08);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-hover);
+    background: var(--color-bg-secondary);
   }
 
   .icon {
     width: 18px;
     height: 18px;
-    transition: transform 0.3s ease;
-  }
-
-  .theme-toggle:hover .icon {
-    transform: rotate(15deg);
+    transition: transform 0.2s ease;
   }
 </style>

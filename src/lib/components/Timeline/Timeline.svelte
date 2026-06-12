@@ -56,7 +56,7 @@
 
 <div class="timeline-container">
   <h1 class="timeline-title"><Icons name="timeline" size={28} /> 博客时间线</h1>
-  <p class="timeline-subtitle">记录我的博客成长历程 · 共 {posts.length} 篇文章</p>
+  <p class="timeline-subtitle">按时间整理的技术手稿 · 共 {posts.length} 篇文章</p>
 
   {#if isLoading}
     <div class="loading-state">
@@ -124,26 +124,17 @@
   }
 
   .timeline-title {
-    text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0.5rem;
     color: var(--color-text-primary);
   }
 
-  .timeline-title :global(svg) {
-    background: linear-gradient(135deg, var(--color-accent-gradient-start), var(--color-accent-gradient-end));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
   .timeline-subtitle {
-    text-align: center;
     color: var(--color-text-muted);
     margin-bottom: 3rem;
     font-size: 1.1rem;
@@ -183,10 +174,9 @@
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--color-accent-gradient-start), var(--color-accent-gradient-end), var(--color-accent-gradient-alt));
+    width: 1px;
+    background: var(--color-border);
     transform: translateX(-50%);
-    border-radius: 2px;
   }
 
   .year-marker {
@@ -198,14 +188,13 @@
 
   .year-badge {
     display: inline-block;
-    padding: 0.4rem 1.5rem;
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(167, 139, 250, 0.15));
-    border: 1px solid rgba(96, 165, 250, 0.3);
-    border-radius: 999px;
-    font-size: 1.3rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 1rem;
     font-weight: 700;
-    color: var(--color-accent-light);
-    backdrop-filter: blur(10px);
+    color: var(--color-text-primary);
   }
 
   .timeline-item {
@@ -231,33 +220,31 @@
     position: absolute;
     left: 50%;
     top: 1.5rem;
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
     background: var(--color-accent);
-    border: 3px solid rgba(96, 165, 250, 0.2);
+    border: 3px solid var(--color-bg-primary);
     border-radius: 50%;
     transform: translateX(-50%);
     z-index: 2;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 12px rgba(96, 165, 250, 0.3);
+    transition: all 0.2s ease;
+    box-shadow: 0 0 0 1px var(--color-border);
   }
 
   .timeline-item:hover .timeline-dot {
-    background: var(--color-accent-gradient-alt);
-    border-color: rgba(244, 114, 182, 0.3);
-    box-shadow: 0 0 20px rgba(244, 114, 182, 0.4);
-    transform: translateX(-50%) scale(1.3);
+    background: var(--color-text-primary);
+    transform: translateX(-50%) scale(1.15);
   }
 
   .timeline-card {
     background: var(--color-bg-card);
-    backdrop-filter: blur(16px);
     border: 1px solid var(--color-border);
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 1.25rem;
     width: 100%;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     position: relative;
+    box-shadow: var(--shadow-card);
   }
 
   .timeline-card::before {
@@ -284,9 +271,8 @@
   }
 
   .timeline-card:hover {
-    border-color: var(--color-border-accent);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    border-color: var(--color-border-hover);
+    background: var(--color-bg-secondary);
   }
 
   .tl-date {
@@ -298,10 +284,11 @@
     align-items: center;
     gap: 0.35rem;
     padding: 0.2rem 0.8rem;
-    background: rgba(96, 165, 250, 0.1);
-    border-radius: 999px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
     font-size: 0.82rem;
-    color: var(--color-accent-light);
+    color: var(--color-text-muted);
   }
 
   .tl-card-title {
@@ -348,16 +335,16 @@
 
   .tl-tag {
     padding: 0.15rem 0.5rem;
-    background: rgba(96, 165, 250, 0.08);
-    border: 1px solid rgba(96, 165, 250, 0.15);
-    border-radius: 999px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
     font-size: 0.7rem;
-    color: var(--color-accent-light);
+    color: var(--color-text-muted);
   }
 
   .tl-tag-more {
-    background: rgba(148, 163, 184, 0.08);
-    border-color: rgba(148, 163, 184, 0.15);
+    background: var(--color-bg-card);
+    border-color: var(--color-border);
     color: var(--color-text-muted);
   }
 

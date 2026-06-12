@@ -41,19 +41,17 @@
   class:header-scrolled={isScrolled}
 >
   <div class="header-inner">
-    <!-- Logo -->
     <a href={`${base}/`} class="logo">
-      <span class="logo-icon">✦</span>
+      <span class="logo-icon">ZK</span>
       <span class="logo-text">Zerokaze</span>
     </a>
 
-    <!-- Desktop Nav -->
     <nav class="nav-desktop">
       <a href={`${base}/`} class="nav-link">首页</a>
       <a href={`${base}/blog`} class="nav-link">所有文章</a>
       <a href={`${base}/tags`} class="nav-link">标签</a>
       <a href={`${base}/calendar`} class="nav-link">时间线</a>
-      <a href={`${base}/about`} class="nav-link nav-link-about">关于我</a>
+      <a href={`${base}/about`} class="nav-link nav-link-about">档案</a>
     </nav>
 
     <div class="header-actions">
@@ -62,7 +60,6 @@
       </a>
       <ThemeToggle />
 
-    <!-- Hamburger -->
     <button
       class="hamburger"
       onclick={toggleNav}
@@ -82,14 +79,13 @@
     </div>
   </div>
 
-  <!-- Mobile Nav -->
   {#if isNavOpen}
     <nav class="nav-mobile">
       <a href={`${base}/`} class="nav-link-mobile" onclick={toggleNav}>首页</a>
       <a href={`${base}/blog`} class="nav-link-mobile" onclick={toggleNav}>所有文章</a>
       <a href={`${base}/tags`} class="nav-link-mobile" onclick={toggleNav}>标签</a>
       <a href={`${base}/calendar`} class="nav-link-mobile" onclick={toggleNav}>时间线</a>
-      <a href={`${base}/about`} class="nav-link-mobile" onclick={toggleNav}>关于我</a>
+      <a href={`${base}/about`} class="nav-link-mobile" onclick={toggleNav}>档案</a>
     </nav>
   {/if}
 </header>
@@ -101,15 +97,15 @@
     z-index: 50;
     width: 100%;
     background: var(--color-bg-header);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   }
 
   .header-scrolled {
     background: var(--color-bg-header-scrolled);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-card);
   }
 
   .header-hidden {
@@ -134,16 +130,23 @@
   }
 
   .logo-icon {
-    font-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
   }
 
   .logo-text {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--color-accent-gradient-start), var(--color-accent-gradient-end));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-text-primary);
   }
 
   .nav-desktop {
@@ -170,20 +173,21 @@
   }
 
   .nav-link:hover {
-    color: var(--color-text-secondary);
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-primary);
+    background: var(--color-bg-secondary);
   }
 
   .nav-link-about {
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(167, 139, 250, 0.12));
-    border: 1px solid rgba(96, 165, 250, 0.15);
-    color: var(--color-accent-light);
+    background: var(--color-text-primary);
+    border: 1px solid var(--color-text-primary);
+    color: var(--color-bg-primary);
     margin-left: 0.5rem;
   }
 
   .nav-link-about:hover {
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2));
-    border-color: rgba(96, 165, 250, 0.3);
+    background: var(--color-text-secondary);
+    border-color: var(--color-text-secondary);
+    color: var(--color-bg-primary);
   }
 
   .hamburger {
@@ -191,14 +195,15 @@
     padding: 0.5rem;
     border-radius: 8px;
     color: var(--color-text-muted);
-    background: none;
-    border: none;
+    background: transparent;
+    border: 1px solid var(--color-border);
     cursor: pointer;
     transition: color 0.2s;
   }
 
   .hamburger:hover {
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
+    background: var(--color-bg-secondary);
   }
 
   @media (min-width: 768px) {
@@ -223,13 +228,14 @@
     padding: 0.4rem;
     border-radius: 8px;
     color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
     text-decoration: none;
     transition: all 0.2s;
   }
 
   .header-icon-btn:hover {
-    color: var(--color-accent);
-    background: rgba(96, 165, 250, 0.08);
+    color: var(--color-text-primary);
+    background: var(--color-bg-secondary);
   }
 
   .nav-mobile {
@@ -260,7 +266,7 @@
   }
 
   .nav-link-mobile:hover {
-    color: var(--color-text-secondary);
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-primary);
+    background: var(--color-bg-secondary);
   }
 </style>
