@@ -51,7 +51,7 @@
       <a href={`${base}/blog`} class="nav-link">所有文章</a>
       <a href={`${base}/tags`} class="nav-link">标签</a>
       <a href={`${base}/calendar`} class="nav-link">时间线</a>
-      <a href={`${base}/about`} class="nav-link nav-link-about">档案</a>
+      <a href={`${base}/about`} class="nav-link">档案</a>
     </nav>
 
     <div class="header-actions">
@@ -175,19 +175,6 @@
   .nav-link:hover {
     color: var(--color-text-primary);
     background: var(--color-bg-secondary);
-  }
-
-  .nav-link-about {
-    background: var(--color-text-primary);
-    border: 1px solid var(--color-text-primary);
-    color: var(--color-bg-primary);
-    margin-left: 0.5rem;
-  }
-
-  .nav-link-about:hover {
-    background: var(--color-text-secondary);
-    border-color: var(--color-text-secondary);
-    color: var(--color-bg-primary);
   }
 
   .hamburger {

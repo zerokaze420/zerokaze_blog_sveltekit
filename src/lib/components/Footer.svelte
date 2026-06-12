@@ -27,6 +27,7 @@
   </div>
   <div class="footer-bottom">
     <p>© {currentYear} Zerokaze. Built with SvelteKit</p>
+    <slot />
   </div>
 </footer>
 

@@ -58,8 +58,8 @@
     border: 1px solid var(--color-border);
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: var(--shadow-card);
-    transition: all 0.2s ease;
+    box-shadow: none;
+    transition: border-color 0.2s ease;
   }
   .post-card:hover {
     border-color: var(--color-border-hover);

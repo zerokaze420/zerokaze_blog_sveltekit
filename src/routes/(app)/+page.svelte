@@ -15,11 +15,8 @@
 </svelte:head>
 
 <section class="hero">
-  <div class="hero-art" aria-hidden="true">
-    <img src="{base}/wallhaven-qr6z7d.jpg" alt="" />
-  </div>
   <div class="hero-inner">
-    <div class="hero-badge"><Icons name="pen" size={14} /> 雨季里的技术手稿</div>
+    <p class="hero-badge"><Icons name="pen" size={14} /> 雨季里的技术手稿</p>
     <h1 class="hero-title">
       <span class="hero-name">Zerokaze Archive</span>
     </h1>
@@ -31,20 +28,11 @@
       </a>
       <a href="{base}/about" class="btn-secondary">站点档案</a>
     </div>
-  </div>
-
-  <div class="hero-panel" aria-label="博客统计">
     <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="stat-val">{data.totalPosts}</span>
-        <span class="stat-lbl">篇文章</span>
-      </div>
-      <div class="hero-stat">
-        <span class="stat-val">{Object.keys(data.tagCounts).length}</span>
-        <span class="stat-lbl">标签</span>
-      </div>
+      <span class="stat-item">{data.totalPosts}<span class="stat-lbl">篇文章</span></span>
+      <span class="stat-sep">·</span>
+      <span class="stat-item">{Object.keys(data.tagCounts).length}<span class="stat-lbl">个标签</span></span>
     </div>
-    <p>每一篇笔记都像一枚被雨水洗亮的坐标，指向系统、工具与界面的某个清晨。</p>
   </div>
 </section>
 
@@ -95,70 +83,37 @@
 
 <style>
   .hero {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
-    padding: 3rem 1rem 2rem;
-    position: relative;
+    padding: 6rem 1.5rem 3rem;
+    text-align: left;
   }
-  @media (min-width: 900px) {
+  @media (min-width: 640px) {
     .hero {
-      grid-template-columns: minmax(0, 1fr) 360px;
-      align-items: end;
-      padding-top: 4rem;
+      padding-top: 8rem;
     }
   }
-  .hero-art {
-    position: absolute;
-    inset: 1rem 1rem auto auto;
-    width: min(42vw, 520px);
-    height: 260px;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    overflow: hidden;
-    opacity: 0.22;
-    z-index: -1;
-  }
-  .hero-art img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(0.75) contrast(0.92);
-  }
-  .hero-inner { max-width: 760px; }
+  .hero-inner { }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 0.45rem;
-    padding: 0.28rem 0.65rem;
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: 8px; font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--color-text-muted);
-    margin-bottom: 1.25rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.03em;
   }
-  .hero-title { margin-bottom: 1rem; }
+  .hero-title { margin-bottom: 1.25rem; }
   .hero-name {
-    font-size: clamp(2.4rem, 7vw, 4.8rem);
-    font-weight: 800;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 700;
     color: var(--color-text-primary);
-    line-height: 0.98;
-    letter-spacing: 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
-  .hero-desc { max-width: 40rem; color: var(--color-text-muted); font-size: 1.08rem; margin-bottom: 1.5rem; line-height: 1.75; }
-  .hero-panel {
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: var(--color-bg-card);
-    box-shadow: var(--shadow-card);
-    padding: 1rem;
-  }
-  .hero-panel p { margin-top: 1rem; color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.65; }
-  .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
-  .hero-stat { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.5rem; }
-  .hero-stat + .hero-stat { border-left: 1px solid var(--color-border); }
-  .stat-val { font-size: 1.55rem; font-weight: 700; color: var(--color-text-primary); }
-  .stat-lbl { font-size: 0.78rem; color: var(--color-text-subtle); }
+  .hero-desc { max-width: 36rem; color: var(--color-text-muted); font-size: 1rem; margin-bottom: 2rem; line-height: 1.75; }
+  .hero-stats { display: flex; align-items: center; gap: 0.5rem; margin-top: 3rem; font-size: 0.85rem; color: var(--color-text-subtle); }
+  .stat-item { font-weight: 600; color: var(--color-text-primary); }
+  .stat-lbl { font-weight: 400; color: var(--color-text-subtle); margin-left: 0.25rem; }
+  .stat-sep { color: var(--color-border); }
   .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.5rem;
@@ -231,14 +186,5 @@
   .post-desc { font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 0.5rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-clamp: 2; }
   .post-link { font-size: 0.85rem; color: var(--color-accent); font-weight: 500; }
 
-  @media (max-width: 900px) {
-    .hero-art {
-      position: relative;
-      inset: auto;
-      width: 100%;
-      height: 180px;
-      grid-row: 2;
-      opacity: 0.34;
-    }
-  }
+
 </style>

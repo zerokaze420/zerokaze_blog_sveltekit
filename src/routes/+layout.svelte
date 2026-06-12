@@ -2,6 +2,7 @@
   import '../app.css';
   import { onNavigate } from '$app/navigation';
   import Footer from '$lib/components/Footer.svelte';
+  import PageLoadTime from '$lib/components/PageLoadTime.svelte';
   import { fly } from 'svelte/transition';
 
   let { children } = $props();
@@ -31,7 +32,9 @@
       </div>
     {/key}
   </main>
-  <Footer />
+  <Footer>
+    <PageLoadTime />
+  </Footer>
 </div>
 
 <style>

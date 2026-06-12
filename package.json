@@ -41,6 +41,5 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
-		"@fontsource/lxgw-wenkai": "^5.2.5"
 	}
 }
